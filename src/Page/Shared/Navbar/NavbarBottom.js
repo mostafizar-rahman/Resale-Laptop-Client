@@ -12,14 +12,14 @@ function NavbarBottom() {
           return data
         }
       })
-    console.log(categorys)
+
     return (
         <div className='flex justify-between items-center mt-3  max-w-[1400px] mx-auto'>
             <div className='categoty'>
                 <h3 className='underline '>All Category</h3>
                 <div className='category_menu'>
                     {
-                        categorys.map(category => <Link className='block capitalize leading-6 py-2 px-2' to={`/${category.name}`} key={category._id}>{category.name}</Link>)
+                        categorys.map(category => <Link className='block capitalize leading-6 py-2 px-2' to={`/products/${category.cata_id}`} key={category._id}>{category.name}</Link>)
                     }
                     
                 </div>

@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import React from 'react'
+import Card from '../../../Components/Card/Card'
 import Product from './Product'
 
 function Products() {
@@ -17,7 +18,7 @@ function Products() {
     <div className='max-w-[1400px] mx-auto'>
       <div className='grid grid-cols-4 gap-5'>
         {
-          products.map(product => <Product key={product._id} product={product} />)
+          products.map(product => <Card key={product._id} product={product} />)
         }
       </div>
 

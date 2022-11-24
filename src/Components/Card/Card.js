@@ -1,15 +1,28 @@
 import React from 'react'
+import Button from '../Button/Button'
 
-function Card() {
+function Card({ product }) {
+    const { image, name, orignal_price, resale_price, seller_name, years_use } = product
     return (
-        <div className="max-w-xs rounded-md shadow-md ">
-            <img src="https://source.unsplash.com/random/300x300/?2" alt="" className="object-cover object-center w-full rounded-t-md h-72 dark:bg-gray-500" />
-            <div className="flex flex-col justify-between p-6 space-y-8">
-                <div className="space-y-2">
-                    <h2 className="text-3xl font-semibold tracking-wide">Donec lectus leo</h2>
-                    <p className="">Curabitur luctus erat nunc, sed ullamcorper erat vestibulum eget.</p>
+        <div className='max-w-[1400px] mx-auto'>
+            <div>
+                <div className=" rounded-md shadow-md ">
+                    <img src={image} alt="" className="object-cover object-center w-full rounded-t-md h-72 dark:bg-gray-500" />
+                    <div className="flex flex-col justify-between p-6 space-y-8">
+                        <div className="space-y-2">
+                            <h2 className="text-xl font-semibold tracking-wide">{name}</h2>
+                            <div className='flex justify-between py-3'>
+                                <p className="text-sm"> <b>Orignal Price:</b> ${orignal_price}</p>
+                                <p className="text-sm"> <b>Resale Price:</b> ${resale_price}</p>
+                            </div>
+
+                            <p className="text-sm"> <b>Sellar Name:</b> {seller_name}</p>
+                            <p className="text-sm"> <b>Years of use:</b> {years_use}</p>
+
+                        </div>
+                        <Button>Buy Now</Button>
+                    </div>
                 </div>
-                <button type="button" className="flex items-center justify-center w-full p-3 font-semibold tracking-wide rounded-md ">Read more</button>
             </div>
         </div>
     )
