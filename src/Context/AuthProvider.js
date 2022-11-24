@@ -21,9 +21,9 @@ function AuthProvider({ children }) {
         return signInWithPopup(auth, googleProvider)
     }
 
-    const userUpdateProfile = (userUpdateInfo) =>{
-        console.log(userUpdateInfo)
-        return updateProfile(user, userUpdateInfo)
+    const userUpdateProfile = (updateUser) =>{
+        console.log(updateUser)
+        return updateProfile(auth.currentUser, updateUser)
     }
 
     const userLogout = () => {
@@ -33,12 +33,14 @@ function AuthProvider({ children }) {
     }
 
     useEffect(() => {
-        const unSubscribe = onAuthStateChanged(auth, currentUser => {
+        const unsubscribe = onAuthStateChanged(auth, currentUser => {
             console.log(currentUser)
             setUser(currentUser)
         })
 
-        return () => unSubscribe()
+        return () => {
+            unsubscribe()
+        }
     }, [])
 
     const userInfo = {

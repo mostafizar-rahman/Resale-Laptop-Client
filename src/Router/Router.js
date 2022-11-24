@@ -1,7 +1,12 @@
 
 import { createBrowserRouter } from "react-router-dom";
+import DashboardLayout from "../Layout/DashboardLayout";
 import LoginLayout from "../Layout/LoginLayout";
 import Main from "../Layout/Main";
+import Admin from "../Page/Dashboard/Admin/Admin";
+import Buyers from "../Page/Dashboard/Buyers/Buyers";
+import Dashboard from "../Page/Dashboard/Dashboard/Dashboard";
+import Seller from "../Page/Dashboard/Seller/Seller";
 import Home from "../Page/Home/Home/Home";
 import Login from "../Page/Login/Login";
 import Singup from "../Page/Login/Singup";
@@ -34,6 +39,28 @@ export const router = createBrowserRouter([
             {
                 path: '/loginLayout/singup',
                 element: <Singup />
+            }
+        ]
+    },
+    {
+        path:'/dashboard',
+        element:<DashboardLayout/>,
+        children:[
+            {
+                path:'/dashboard',
+                element:<Dashboard/>
+            },
+            {
+                path:'/dashboard/buyer',
+                element:<Buyers/>
+            },
+            {
+                path:'/dashboard/seller',
+                element:<Seller/>
+            },
+            {
+                path:'/dashboard/admin',
+                element:<Admin/>
             }
         ]
     }

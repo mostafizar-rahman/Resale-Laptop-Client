@@ -21,7 +21,7 @@ function Singup() {
         const email = form.email.value;
         const password = form.password.value;
         const name = form.username.value;
-        const photo = form.photo.files[0];
+        const image = form.photo.files[0];
         const user = form.user.value;
 
         // Simple Form validation
@@ -37,7 +37,7 @@ function Singup() {
 
         // Post photo imbb server and get photo link
         const formData = new FormData()
-        formData.append("image", photo)
+        formData.append("image", image)
 
         fetch(`https://api.imgbb.com/1/upload?key=6f54997c6d2fa4998c950d62aaf1c8a1`, {
             method: 'POST',
@@ -45,31 +45,34 @@ function Singup() {
         })
             .then(res => res.json())
             .then(data => {
-                setImageUrl(data?.data?.display_url)
-                console.log(data.data.display_url)
-
-                // Create account 
-                userRegister(email, password)
-                    .then(() => {
-                        const userUpdateInfo = {
-                            displayName: name,
-                            photoURL: imageUrl
-                        }
-                        userUpdateProfile(userUpdateInfo)
-                        navigate(url, { replace: true })
-                        form.reset()
-                    })
-                    .catch(error => {
-                        console.log(error)
-                        const errorCode = error.code.slice(5, -1);
-                        setError(errorCode)
-                    })
+                setImageUrl(data.data.display_url)
             })
 
+        // Create account 
+        userRegister(email, password)
+            .then(result => {
+                console.log(result.user)
 
-
+                // Update prifile [name and image]
+                const updateUser = {
+                    displayName: name,
+                }
+                userUpdateProfile(updateUser)
+                    .then(() => { 
+                        navigate(url, { replace: true })
+                    })
+                    .catch(err => console.log(err))
+                
+                form.reset()
+            })
+            .catch(error => {
+                console.log(error)
+                const errorCode = error.code.slice(5, -1);
+                setError(errorCode)
+            })
     }
 
+    // Login with google
     const handleGoogleLogin = () => {
         userLoginWithGoogle()
             .then(() => {

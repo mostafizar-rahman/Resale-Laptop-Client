@@ -20,24 +20,8 @@ function Login() {
 
         userLogin(email, password)
             .then(result => {
-                const currentUser = {
-                    email: result.user.email
-
-                }
-                fetch(`https://module-70-server.vercel.app/jwt`, {
-                    method: 'POST',
-                    headers: {
-                        'content-type': 'application/json'
-                    },
-                    body: JSON.stringify(currentUser)
-                })
-                    .then(res => res.json())
-                    .then(data => {
-                        localStorage.setItem('token', data.token)
-                        navigate(url, { replace: true })
-                    })
+                navigate(url, { replace: true })
                 form.reset()
-
             })
             .catch(error => {
                 const errorCode = error.code.slice(5, -1);

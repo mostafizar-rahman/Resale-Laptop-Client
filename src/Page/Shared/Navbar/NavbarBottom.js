@@ -28,6 +28,7 @@ function NavbarBottom() {
                 <NavLink to='/'>Home</NavLink>
                 <NavLink to='/about'>About</NavLink>
                 <NavLink to='/Block'>Block</NavLink>
+                <NavLink to='/dashboard'>Dashboard</NavLink>
             </div>
         </div>
 
