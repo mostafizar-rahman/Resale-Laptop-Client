@@ -1,0 +1,4 @@
+.btn_bg{
+    background: rgb(59,60,60);
+    background: linear-gradient(90deg, rgba(59,60,60,1) 0%, rgba(23,170,190,1) 50%, rgba(13,222,195,1) 100%);
+}

@@ -1,0 +1,16 @@
+.categoty{
+    display: inline-block;
+    position: relative;
+}
+.categoty:hover > .category_menu {
+    display: block;
+}
+
+.category_menu {
+    background-color: white;
+    position: absolute;
+    display: none;
+    width: 100%;
+}
+
+   
