@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
+import Button from '../../Components/Button/Button'
 import { AuthContext } from '../../Context/AuthProvider'
 
 
@@ -43,12 +44,12 @@ function Singup() {
     }
 
     const userUpdateProfile = (name, photourl) => {
-        
+
     }
 
     const handleGoogleLogin = () => {
         userLoginWithGoogle()
-            .then(() => { 
+            .then(() => {
                 navigate(url, { replace: true })
             })
             .catch(err => console.log(err))
@@ -56,35 +57,47 @@ function Singup() {
 
     return (
         <div>
-            <section className="p-6 bg-gray-800 text-gray-100">
-                <div className="container grid gap-6 mx-auto lg:grid-cols-2 xl:grid-cols-5">
-                    <div className="w-full px-6 py-16 rounded-md sm:px-12 md:px-16 xl:col-span-2 bg-gray-900">
-                        <div className="w-full max-w-md p-8 space-y-3 rounded-xl bg-gray-900 text-gray-100">
+            <section className="">
+                <div className="">
+                    <div className=" ">
+                        <div className="w-full max-w-sm mx-auto py-10  ">
                             <h1 className="text-2xl font-bold text-center">Register</h1>
                             <p className='text-red-600 capitalize'>{error}</p>
-                            <form onSubmit={handleFormSubmit} className="space-y-6 ng-untouched ng-pristine ng-valid">
+                            <form onSubmit={handleFormSubmit} className="space-y-6">
                                 <div className="space-y-1 text-sm">
-                                    <label htmlFor="username" className="block text-gray-400">Username</label>
-                                    <input type="text" name="username" placeholder="Username" className="w-full px-4 py-3 rounded-md border border-white bg-gray-900 text-gray-100 focus:border-violet-400" />
+                                    <label htmlFor="username" className="block">Username</label>
+                                    <input type="text" name="username" placeholder="Username" className="w-full px-4 py-3 rounded-md border border-gray-300" />
                                 </div>
                                 <div className="space-y-1 text-sm">
-                                    <label htmlFor="photourl" className="block text-gray-400">PhotoURL</label>
-                                    <input type="text" name="photourl" placeholder="PhotoURL" className="w-full px-4 py-3 rounded-md border border-white bg-gray-900 text-gray-100 focus:border-violet-400" />
+                                    <label htmlFor="email" className="block">Email</label>
+                                    <input type="email" name="email" placeholder="Email" className="w-full px-4 py-3 rounded-md border border-gray-300" />
                                 </div>
                                 <div className="space-y-1 text-sm">
-                                    <label htmlFor="email" className="block text-gray-400">Email</label>
-                                    <input type="email" name="email" placeholder="Email" className="w-full px-4 py-3 rounded-md border border-white bg-gray-900 text-gray-100 focus:border-violet-400" />
+                                    <label htmlFor="password" className="block">Password</label>
+                                    <input type="password" name="password" placeholder="Password" className="w-full px-4 py-3 rounded-md border border-gray-300" />
                                 </div>
                                 <div className="space-y-1 text-sm">
-                                    <label htmlFor="password" className="block text-gray-400">Password</label>
-                                    <input type="password" name="password" placeholder="Password" className="w-full px-4 py-3 rounded-md border border-white bg-gray-900 text-gray-100 focus:border-violet-400" />
+                                    <input type="file" name="photo" className="w-full py-3 " />
+                                </div>
+                                <div className=" text-sm flex items-center space-x-4">
+                                    <label className="block">Chooce your account</label>
+                                    <label htmlFor="buyer" className='flex items-center'>
+                                        <input type="radio" id='buyer' name="user" defaultValue='Buyer' checked />
+                                        <span className="ml-1">Buyer</span>
+                                    </label>
+                                    <label htmlFor="seller" className='flex items-center'>
+                                        <input type="radio" id='seller' name="user" className="" defaultValue='Seller' />
+                                        <span className="ml-1">Seller</span>
+                                    </label>
                                 </div>
                                 <i className='text-red-600 '>{varify}</i>
-                                <button className="block w-full p-3 text-center rounded-sm  bg-orange-600 text-white">Register</button>
+                                <div className='pt-5'>
+                                    <Button>Sing up</Button>
+                                </div>
                             </form>
                             <div className="flex items-center pt-4 space-x-1">
                                 <div className="flex-1 h-px sm:w-16 bg-gray-700"></div>
-                                <p className="px-3 text-sm text-gray-400">Login with social accounts</p>
+                                <p className="px-3 text-sm">Login with social accounts</p>
                                 <div className="flex-1 h-px sm:w-16 bg-gray-700"></div>
                             </div>
                             <div className="flex justify-center space-x-4">
@@ -104,12 +117,12 @@ function Singup() {
                                     </svg>
                                 </button>
                             </div>
-                            <p className="text-xs text-center sm:px-6 text-gray-400">You have an account?
-                                <Link to='/login' className="underline text-gray-100">Log in</Link>
+                            <p className="text-xs text-center sm:px-6">You have an account?
+                                <Link to='/login' className="underline font-bold">Log in</Link>
                             </p>
                         </div>
                     </div>
-                    
+
                 </div>
             </section>
         </div>
