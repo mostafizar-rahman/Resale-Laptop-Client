@@ -6,9 +6,11 @@ import { AuthContext } from '../../Context/AuthProvider'
 
 
 function Singup() {
-    const { userRegister, userLoginWithGoogle } = useContext(AuthContext)
+    const { userRegister, userUpdateProfile, userLoginWithGoogle } = useContext(AuthContext)
+
     const [varify, setVarify] = useState('')
     const [error, setError] = useState('')
+    const [imageUrl, setImageUrl] = useState('')
     const location = useLocation()
     const navigate = useNavigate()
     const url = location.state?.from?.pathname || '/'
@@ -18,9 +20,11 @@ function Singup() {
         const form = event.target;
         const email = form.email.value;
         const password = form.password.value;
-        const photourl = form.photourl.value;
         const name = form.username.value;
+        const photo = form.photo.files[0];
+        const user = form.user.value;
 
+        // Simple Form validation
         if (name.length < 5) {
             setVarify('Name enter min 5 character ')
         }
@@ -31,19 +35,38 @@ function Singup() {
             setVarify('')
         }
 
-        userRegister(email, password)
-            .then(() => {
-                userUpdateProfile(name, photourl)
-                navigate(url, { replace: true })
-                form.reset()
-            })
-            .catch(error => {
-                const errorCode = error.code.slice(5, -1);
-                setError(errorCode)
-            })
-    }
+        // Post photo imbb server and get photo link
+        const formData = new FormData()
+        formData.append("image", photo)
 
-    const userUpdateProfile = (name, photourl) => {
+        fetch(`https://api.imgbb.com/1/upload?key=6f54997c6d2fa4998c950d62aaf1c8a1`, {
+            method: 'POST',
+            body: formData
+        })
+            .then(res => res.json())
+            .then(data => {
+                setImageUrl(data?.data?.display_url)
+                console.log(data.data.display_url)
+
+                // Create account 
+                userRegister(email, password)
+                    .then(() => {
+                        const userUpdateInfo = {
+                            displayName: name,
+                            photoURL: imageUrl
+                        }
+                        userUpdateProfile(userUpdateInfo)
+                        navigate(url, { replace: true })
+                        form.reset()
+                    })
+                    .catch(error => {
+                        console.log(error)
+                        const errorCode = error.code.slice(5, -1);
+                        setError(errorCode)
+                    })
+            })
+
+
 
     }
 
@@ -82,7 +105,7 @@ function Singup() {
                                 <div className=" text-sm flex items-center space-x-4">
                                     <label className="block">Chooce your account</label>
                                     <label htmlFor="buyer" className='flex items-center'>
-                                        <input type="radio" id='buyer' name="user" defaultValue='Buyer' checked />
+                                        <input type="radio" id='buyer' name="user" defaultValue='Buyer' defaultChecked />
                                         <span className="ml-1">Buyer</span>
                                     </label>
                                     <label htmlFor="seller" className='flex items-center'>
