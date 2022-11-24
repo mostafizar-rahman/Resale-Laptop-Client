@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import React from 'react'
 import Card from '../../../Components/Card/Card'
-import Product from './Product'
 
 function Products() {
   const { data: products = [] } = useQuery({
@@ -21,7 +20,7 @@ function Products() {
           products.map(product => <Card key={product._id} product={product} />)
         }
       </div>
-
+      
     </div>
   )
 }

@@ -1,8 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
+import BookingModal from '../../Page/BookingModal/BookingModal';
 import Button from '../Button/Button'
 
 function Card({ product }) {
-    const { image, name, orignal_price, resale_price, seller_name, years_use } = product
+    const { image, name, orignal_price, resale_price, seller_name, years_use } = product;
+    const [modal, setModal] = useState(false)
+
+    const hendleOpenModal = () => {
+        setModal(true)
+    }
+
     return (
         <div className='max-w-[1400px] mx-auto'>
             <div>
@@ -20,10 +27,13 @@ function Card({ product }) {
                             <p className="text-sm"> <b>Years of use:</b> {years_use}</p>
 
                         </div>
-                        <Button>Buy Now</Button>
+                        <Button hendleClick={hendleOpenModal}>Buy Now</Button>
                     </div>
                 </div>
             </div>
+            {
+                modal ? <BookingModal modal={modal} setModal={setModal} product={product}/> : ''
+            }
         </div>
     )
 }
