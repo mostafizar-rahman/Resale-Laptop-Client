@@ -11,7 +11,7 @@ function Products() {
       return data
     }
   })
-  console.log(products)
+
 
   return (
     <div className='max-w-[1400px] mx-auto'>
