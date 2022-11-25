@@ -16,8 +16,12 @@ function DashboardSIdebar() {
 
   return (
     <div>
-      <div className='bg-[#32c4d7]  min-h-[600px] h-full px-2 py-4'>
-        <ul className='space-y-6'>
+      <div className='bg-[#32c4d7]  h-[calc(100vh-60px)]  px-2 py-4'>
+        <ul className='space-y-6 mt-5'>
+          <Link to='/' className='flex justify-center'>
+            <button className='btn border border-gray-800 rounded-full px-5 py-2 bg-white'>Back To Home</button>
+          </Link>
+          <hr />
           {
             userRole.data?.userRole === 'admin' &&
             <>
@@ -37,6 +41,7 @@ function DashboardSIdebar() {
               <li><Link to='/dashboard/addProduct'>Add Prodcut</Link> </li>
             </>
           }
+
         </ul>
       </div>
     </div >

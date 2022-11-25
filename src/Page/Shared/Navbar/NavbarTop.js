@@ -6,7 +6,7 @@ function NavbarTop() {
     const { user, userLogout } = useContext(AuthContext)
 
     return (
-        <div className='flex justify-between max-w-[1400px] mx-auto pb-3'>
+        <div className='flex justify-between max-w-[1400px] mx-auto pt-3 pb-4'>
             <div>
                 <h1 className='text-2xl font-bold'>Laptop</h1>
             </div>

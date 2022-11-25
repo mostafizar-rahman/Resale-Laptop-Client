@@ -4,7 +4,7 @@ import NavbarTop from './NavbarTop'
 
 function Navbar() {
   return (
-    <div className='py-5'>
+    <div>
       <NavbarTop />
       <div className='border-t-gray-300 border-t'></div>
       <NavbarBottom />

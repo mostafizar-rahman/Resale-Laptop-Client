@@ -14,7 +14,7 @@ function NavbarBottom() {
       })
 
     return (
-        <div className='flex justify-between items-center mt-3  max-w-[1400px] mx-auto'>
+        <div className='flex justify-between items-center mt-3  max-w-[1400px] mx-auto pb-3'>
             <div className='categoty'>
                 <h3 className='underline '>All Category</h3>
                 <div className='category_menu'>
