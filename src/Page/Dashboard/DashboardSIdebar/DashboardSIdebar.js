@@ -39,8 +39,8 @@ function DashboardSIdebar() {
           {
             userRole.data?.userRole === 'seller' &&
             <>
-              <Link to='/dashboard/myProduct'>My Product</Link>
-              <Link to='/dashboard/addProduct'>Add Prodcut</Link> 
+              <Link to='/dashboard/myProduct' className='text-white font-semibold underline text-center block '>My Product</Link>
+              <Link to='/dashboard/addProduct' className='text-white font-semibold underline text-center block '>Add Prodcut</Link> 
             </>
           }
 

@@ -19,7 +19,9 @@ function BookingModal({ product, modal, setModal }) {
             email: user?.email,
             number,
             location,
-            price: product.resale_price
+            price: product.resale_price,
+            image: product.image,
+
 
         }
         fetch('http://localhost:5000/product',{

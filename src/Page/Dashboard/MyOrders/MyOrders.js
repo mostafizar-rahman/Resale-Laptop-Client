@@ -35,17 +35,17 @@ function MyOrders() {
                                 // ------------condaition for loading no item
                                 <div><div className='text-2xl text-yellow-600 '> "No item review"</div></div> :
                                 prodcuts?.map((prodcut, index) => {
-                                    const { productName, price } = prodcut
+                                    const { productName, price, image } = prodcut
                                     // --------- Review Items
                                     return (
-                                        <div key={prodcut._id} className="grid  sm:grid-cols-[100px_auto_auto_auto_auto] break-words">
+                                        <div key={prodcut._id} className="grid  sm:grid-cols-[100px_auto_auto_auto_auto] break-words ">
                                             <div className="px-3 py-2 flex items-center">
                                                 <p className='sm:hidden font-semibold text-base'>No: </p>
                                                 <p className='sm:ml-0 ml-3'>{index + 1}</p>
                                             </div>
                                             <div className="px-3 py-2 flex items-center">
                                             <p className='sm:hidden font-semibold text-base'>Image: </p>
-                                                <img src="https://wallpaperaccess.com/full/1393334.jpg" alt="" className='w-10 h-10 sm:ml-0 ml-3' />
+                                                <img src={image} alt="" className='w-10 h-10 sm:ml-0 ml-3 object-contain' />
                                             </div>
                                             <div className="px-3 py-2 flex items-center">
                                                 <p className='sm:hidden font-semibold text-base'>Title: </p>

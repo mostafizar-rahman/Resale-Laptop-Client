@@ -31,9 +31,12 @@ function Card({ product }) {
                     </div>
                 </div>
             </div>
-            {
-                modal ? <BookingModal modal={modal} setModal={setModal} product={product}/> : ''
-            }
+
+                {
+
+                    modal ? <BookingModal modal={modal} setModal={setModal} product={product} /> : ''
+                }
+
         </div>
     )
 }

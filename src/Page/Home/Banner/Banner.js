@@ -36,7 +36,7 @@ function Banner() {
                 <h1 className=' text-5xl font-bold'>Your Product our bussnis</h1>
                 <p className='mt-4 text-lg'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et voluptas, recusandae est maxime odio non.</p>
               </div>
-              <img src="https://i.ibb.co/Ws195BD/pngfind-com-monitor-png-391680.png" alt="" className='md:w-1/2  w-full h-[500px] relative md:static ' />
+              <img src="https://i.ibb.co/ynwhn8b/dell-3.png" alt="" className='md:w-1/2  w-full h-[500px] relative md:static ' />
             </div>
           </div>
         </div>

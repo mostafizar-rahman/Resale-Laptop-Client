@@ -13,7 +13,7 @@ function DashboardLayout() {
                 <div className=''>
                     <DashboardSIdebar />
                 </div>
-                <div className='ml-5'>
+                <div className='md:ml-5 ml-0'>
                     <Outlet />
                 </div>
             </div>
