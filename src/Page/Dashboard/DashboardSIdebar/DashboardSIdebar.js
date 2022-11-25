@@ -18,17 +18,27 @@ function DashboardSIdebar() {
     <div>
       <div className='bg-[#32c4d7]  min-h-[600px] h-full px-2 py-4'>
         <ul className='space-y-6'>
-          {userRole.data?.userRole === 'admin' &&
+          {
+            userRole.data?.userRole === 'admin' &&
             <>
               <li><Link to='/dashboard/admin'>Admin</Link></li>
               <li><Link to='/dashboard/buyer'>Buyer</Link></li>
               <li><Link to='/dashboard/seller'>Seller</Link> </li>
-          </>
+            </>
           }
-        {userRole.data?.userRole === 'buyer' && <li><Link to='/dashboard/buyer'>Buyer</Link></li>}
-        {userRole.data?.userRole === 'seller' && <li><Link to='/dashboard/seller'>Seller</Link> </li>}
-      </ul>
-    </div>
+          {
+            userRole.data?.userRole === 'buyer' &&
+            <li><Link to='/dashboard/myOrders'>My Orders</Link></li>
+          }
+          {
+            userRole.data?.userRole === 'seller' &&
+            <>
+              <li><Link to='/dashboard/myProduct'>My Product</Link></li>
+              <li><Link to='/dashboard/addProduct'>Add Prodcut</Link> </li>
+            </>
+          }
+        </ul>
+      </div>
     </div >
   )
 }

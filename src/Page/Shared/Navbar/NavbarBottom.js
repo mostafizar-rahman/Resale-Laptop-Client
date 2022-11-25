@@ -1,11 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
-import React, { useContext } from 'react'
 import { Link, NavLink } from 'react-router-dom'
-import { AuthContext } from '../../../Context/AuthProvider'
 import './NavbarBottom.css'
 
 function NavbarBottom() {
-    const {user} = useContext(AuthContext)
 
     const { data: categorys = [] } = useQuery({
         queryKey: ['categorys'],
@@ -31,10 +28,6 @@ function NavbarBottom() {
                 <NavLink to='/'>Home</NavLink>
                 <NavLink to='/about'>About</NavLink>
                 <NavLink to='/Block'>Block</NavLink>
-                {
-                    user && <NavLink to='/dashboard'>Dashboard</NavLink>
-                }
-                
             </div>
         </div>
 
