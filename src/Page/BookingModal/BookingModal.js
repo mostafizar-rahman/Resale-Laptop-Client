@@ -1,12 +1,35 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { IoCloseCircle } from "react-icons/io5";
 import Button from '../../Components/Button/Button';
 import { AuthContext } from '../../Context/AuthProvider';
 
 function BookingModal({ product, modal, setModal }) {
     const { user } = useContext(AuthContext)
+    const [number, setNumber] = useState('')
+    const [location, setLocation] = useState('')
+
     const hendleCloseModal = () => {
         setModal(false)
+    }
+
+    const hendleAddDbProduct = () => {
+        const products = {
+            productName: product.name,
+            buyerName: user?.displayName,
+            email: user?.email,
+            number,
+            location,
+            price: product.resale_price
+
+        }
+        fetch('http://localhost:5000/product',{
+            method:'POST',
+            headers:{
+                'content-type':'application/json'
+            },
+            body:JSON.stringify(products)
+        })
+        console.log(products)
     }
 
     return (
@@ -24,11 +47,11 @@ function BookingModal({ product, modal, setModal }) {
                                 <p><b>Name:</b> {user?.displayName}</p>
                                 <p><b>Email:</b> {user?.email}</p>
                                 <p><b>Price:</b> ${product.resale_price}</p>
-                                <input type="number" name="" placeholder='Enter your phone number' className='max-w-[400px] w-full h-10 px-3' />
-                                <textarea name="" placeholder='Meeting Location' className='max-w-[400px] w-full h-36 px-3'></textarea>
+                                <input onBlur={(e) => setNumber(e.target.value)} type="number" name="" placeholder='Enter your phone number' className='max-w-[400px] w-full h-10 px-3' />
+                                <textarea onBlur={(e) => setLocation(e.target.value)} name="" placeholder='Meeting Location' className='max-w-[400px] w-full h-36 px-3'></textarea>
                             </div>
                             <div className='w-32 mt-5'>
-                                <Button>Submit</Button>
+                                <Button hendleClick={hendleAddDbProduct}>Submit</Button>
                             </div>
                         </div>
 

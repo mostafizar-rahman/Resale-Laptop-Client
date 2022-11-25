@@ -11,6 +11,7 @@ import Home from "../Page/Home/Home/Home";
 import Login from "../Page/Login/Login";
 import Singup from "../Page/Login/Singup";
 import ProductWIthCategory from "../Page/ProductWithCategory/ProductWIthCategory";
+import PriviteRoute from "./PriviteRoute";
 
 export const router = createBrowserRouter([
     {
@@ -29,22 +30,22 @@ export const router = createBrowserRouter([
         ]
     },
     {
-        path: '/loginLayout',
+        path: '/login',
         element: <LoginLayout />,
         children: [
             {
-                path: '/loginLayout',
+                path: '/login',
                 element: <Login />
             },
             {
-                path: '/loginLayout/singup',
+                path: '/login/singup',
                 element: <Singup />
             }
         ]
     },
     {
         path:'/dashboard',
-        element:<DashboardLayout/>,
+        element:<PriviteRoute><DashboardLayout/></PriviteRoute>,
         children:[
             {
                 path:'/dashboard',

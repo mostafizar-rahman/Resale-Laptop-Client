@@ -16,7 +16,7 @@ function NavbarTop() {
                 <IoCartOutline className='text-2xl font-bold cursor-pointer' />
                 {user && user.uid ?
                     <p onClick={userLogout}>Logout</p> :
-                    <Link to='/loginLayout' className=''>Login</Link>
+                    <Link to='/login' className=''>Login</Link>
                 }
             </div>
         </div>

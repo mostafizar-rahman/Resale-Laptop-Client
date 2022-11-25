@@ -81,7 +81,7 @@ function Login() {
                     </button>
                 </div>
                 <p className="text-xs text-center sm:px-6">Don't have an account?
-                    <Link to='/loginLayout/singup' className="underline font-bold">Sign up</Link>
+                    <Link to='/login/singup' className="underline font-bold">Sign up</Link>
                 </p>
             </div>
         </section>
