@@ -62,7 +62,7 @@ function Singup() {
                     .then(() => {
 
                         // Send user info in database
-                        const userInfo ={
+                        const userInfo = {
                             email,
                             name,
                             userRole
@@ -74,6 +74,8 @@ function Singup() {
                             },
                             body: JSON.stringify(userInfo)
                         })
+                            .then(res => res.json())
+                            .then(data => console.log(data))
 
                         // Navigate 
                         navigate(url, { replace: true })
