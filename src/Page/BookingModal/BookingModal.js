@@ -35,7 +35,7 @@ function BookingModal({ product, modal, setModal }) {
     return (
         <div>
             {
-                modal && <div className='fixed top-0 left-0 w-full h-full bg-slate-50 bg-opacity-40 z-100'>
+                modal && <div className='fixed top-0 left-0 w-full h-full bg-slate-50 bg-opacity-40 z-50'>
                     <div className='bg-gray-300 absolute top-1/2 left-1/2 min-w-[300px] min-h-[400px] -translate-x-1/2 -translate-y-1/2'>
                         <div className='px-3 py-2'>
                             <div className='flex justify-between items-center pb-2'>

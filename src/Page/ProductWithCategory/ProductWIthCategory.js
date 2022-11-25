@@ -7,7 +7,7 @@ function ProductWIthCategory() {
     return (
         <div className='max-w-[1400px] mx-auto'>
             
-            <div className='grid grid-cols-4 gap-5 mt-5'>
+            <div className='grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 gap-5 mt-5'>
                 {
                     products.map(product => <Card key={product._id} product={product} />)
                 }

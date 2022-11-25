@@ -4,7 +4,7 @@
     background-size: cover;
     min-height: 100vh;
     position: relative;
-    /* z-index: 1; */
+    z-index: 1;
 }
 .about_bg::after{
     content: '';
