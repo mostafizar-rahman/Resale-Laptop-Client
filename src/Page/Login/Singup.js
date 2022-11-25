@@ -22,7 +22,7 @@ function Singup() {
         const password = form.password.value;
         const name = form.username.value;
         const image = form.photo.files[0];
-        const user = form.user.value;
+        const userRole = form.userRole.value;
 
         // Simple Form validation
         if (name.length < 5) {
@@ -56,13 +56,30 @@ function Singup() {
                 // Update prifile [name and image]
                 const updateUser = {
                     displayName: name,
+                    photoURL: imageUrl
                 }
                 userUpdateProfile(updateUser)
-                    .then(() => { 
+                    .then(() => {
+
+                        // Send user info in database
+                        const userInfo ={
+                            email,
+                            name,
+                            userRole
+                        }
+                        fetch('http://localhost:5000/user', {
+                            method: 'POST',
+                            headers: {
+                                'content-type': 'application/json'
+                            },
+                            body: JSON.stringify(userInfo)
+                        })
+
+                        // Navigate 
                         navigate(url, { replace: true })
                     })
                     .catch(err => console.log(err))
-                
+
                 form.reset()
             })
             .catch(error => {
@@ -108,11 +125,11 @@ function Singup() {
                                 <div className=" text-sm flex items-center space-x-4">
                                     <label className="block">Chooce your account</label>
                                     <label htmlFor="buyer" className='flex items-center'>
-                                        <input type="radio" id='buyer' name="user" defaultValue='Buyer' defaultChecked />
+                                        <input type="radio" id='buyer' name="userRole" defaultValue='buyer' defaultChecked />
                                         <span className="ml-1">Buyer</span>
                                     </label>
                                     <label htmlFor="seller" className='flex items-center'>
-                                        <input type="radio" id='seller' name="user" className="" defaultValue='Seller' />
+                                        <input type="radio" id='seller' name="userRole" defaultValue='seller' />
                                         <span className="ml-1">Seller</span>
                                     </label>
                                 </div>
