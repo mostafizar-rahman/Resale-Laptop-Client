@@ -15,6 +15,7 @@ function Singup() {
     const navigate = useNavigate()
     const url = location.state?.from?.pathname || '/'
 
+    console.log(imageUrl)
     const handleFormSubmit = (event) => {
         event.preventDefault()
         const form = event.target;
@@ -45,22 +46,25 @@ function Singup() {
         })
             .then(res => res.json())
             .then(data => {
-                setImageUrl(data.data.display_url)
+                console.log(data)
+                setImageUrl(data.data.url)
+                
             })
 
         // Create account 
         userRegister(email, password)
             .then(result => {
                 console.log(result.user)
-
+                console.log(imageUrl)
                 // Update prifile [name and image]
                 const updateUser = {
                     displayName: name,
                     photoURL: imageUrl
                 }
+                console.log(updateUser)
                 userUpdateProfile(updateUser)
                     .then(() => {
-
+                        
                         // Send user info in database
                         const userInfo = {
                             email,

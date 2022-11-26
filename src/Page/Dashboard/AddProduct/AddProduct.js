@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Button from '../../../Components/Button/Button'
+import { AuthContext } from '../../../Context/AuthProvider'
 
 function AddProduct() {
+
+  const {user} = useContext(AuthContext)
 
   const hendleAddProductSubmit = (event) => {
     event.preventDefault()
@@ -13,7 +16,7 @@ function AddProduct() {
     const condtion = form.condtion.value;
     const phoneNumber = form.phoneNumber.value;
     const location = form.location.value;
-    const category = form.category.value;
+    const category = form.category.value.toLowerCase();
     const yearOfUse = form.yearOfUse.value;
     const image = form.image.files[0]
     const discription = form.discription.value;
@@ -27,7 +30,6 @@ function AddProduct() {
     })
       .then(res => res.json())
       .then(data => {
-        console.log(data.data.url)
         const productInfo = {
           name,
           orignalPrice,
@@ -39,11 +41,24 @@ function AddProduct() {
           yearOfUse,
           discription,
           date,
-          image: data.data.url
+          image: data.data.url,
+          cata_id: category,
+          userName: user.displayName,
+          userEmail: user.email
         }
-       
 
+console.log(category)
         fetch('http://localhost:5000/addProducts', {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json'
+          },
+          body: JSON.stringify(productInfo)
+        })
+          .then(res => res.json())
+          .then(data => console.log(data))
+
+        fetch('http://localhost:5000/addNewistProduct', {
           method: 'POST',
           headers: {
             'content-type': 'application/json'
@@ -59,7 +74,7 @@ function AddProduct() {
           headers: {
             'content-type': 'application/json'
           },
-          body: JSON.stringify({name:category})
+          body: JSON.stringify({ cata_id: category, name: category })
         })
           .then(res => res.json())
           .then(data => console.log(data))

@@ -33,7 +33,7 @@ function MyOrders() {
                         {
                             prodcuts?.length === 0 ?
                                 // ------------condaition for loading no item
-                                <div><div className='text-2xl text-yellow-600 '> "No item review"</div></div> :
+                                <div><div className='text-2xl text-yellow-600 '> "No item"</div></div> :
                                 prodcuts?.map((prodcut, index) => {
                                     const { productName, price, image } = prodcut
                                     // --------- Review Items
