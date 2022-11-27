@@ -1,17 +1,29 @@
+
 import axios from 'axios'
 import React, { useContext, useEffect, useState } from 'react'
 import Button from '../../../Components/Button/Button'
 import { AuthContext } from '../../../Context/AuthProvider'
+import PaymentModal from '../PaymentModal/PaymentModal'
+
+
 
 function MyOrders() {
 
     const { user } = useContext(AuthContext)
     const [prodcuts, setProducts] = useState([])
+    const [modal, setModal] = useState(false)
+
+
     useEffect(() => {
         axios.get(`http://localhost:5000/product?email=${user?.email}`)
             .then(res => setProducts(res.data))
     }, [user?.email])
-    console.log(prodcuts)
+
+
+    const hendleOpenModal = () => {
+        setModal(true)
+        console.log('click')
+    }
 
     return (
         <div className='mt-8'>
@@ -44,7 +56,7 @@ function MyOrders() {
                                                 <p className='sm:ml-0 ml-3'>{index + 1}</p>
                                             </div>
                                             <div className="px-3 py-2 flex items-center">
-                                            <p className='sm:hidden font-semibold text-base'>Image: </p>
+                                                <p className='sm:hidden font-semibold text-base'>Image: </p>
                                                 <img src={image} alt="" className='w-10 h-10 sm:ml-0 ml-3 object-contain' />
                                             </div>
                                             <div className="px-3 py-2 flex items-center">
@@ -58,8 +70,11 @@ function MyOrders() {
 
                                             <div className="px-3 py-2 flex items-center">
                                                 <p className='sm:hidden font-semibold text-base'>Payment: </p>
-                                                <Button castomClass={'py-1 sm:ml-0 ml-3'}>Payment</Button>
+                                                <Button hendleClick={hendleOpenModal} castomClass={'py-1 sm:ml-0 ml-3'}>Payment</Button>
                                             </div>
+                                            {
+                                                modal ? <PaymentModal modal={modal} setModal={setModal} price={price} /> : ''
+                                            }
                                         </div>
                                     )
                                 })
@@ -67,6 +82,9 @@ function MyOrders() {
                     </div>
                 </div>
             </div>
+            {/* {
+                modal ? <PaymentModal modal={modal} setModal={setModal} /> : ''
+            } */}
         </div>
     )
 }
