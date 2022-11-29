@@ -11,33 +11,23 @@ import PaymentModal from '../PaymentModal/PaymentModal'
 function MyOrders() {
 
     const { user } = useContext(AuthContext)
-    // const [deleteProducts, setdeleteProducts] = useState([])
     const [modal, setModal] = useState(false)
     const [product, setproduct] = useState('')
 
 
-    // useEffect(() => {
-    //     axios.get(`http://localhost:5000/product?email=${user?.email}`)
-    //         .then(res => setProducts(res.data))
-    // }, [user?.email])
-
-    const { data: products, refetch } = useQuery({
+    const { data: products = [], refetch } = useQuery({
         queryKey: ['product', user?.email],
         queryFn: async () => {
             const res = await fetch(`http://localhost:5000/product?email=${user?.email}`)
             const data = await res.json()
             return data
         },
-
-
-
     })
 
 
     const hendleOpenModal = (product) => {
         setModal(true)
         setproduct(product)
-
     }
 
 

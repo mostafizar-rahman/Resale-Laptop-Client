@@ -30,12 +30,12 @@ function AdsCard({ product }) {
     function closeModal() {
         setIsOpen(false);
     }
-const {userName, sellarPrice, orignalPrice, name, yearOfUse, image} = product
+const {userName, sellarPrice, orignalPrice, name, yearOfUse, image, date} = product
     console.log(product)
     return (
         <div className="py-11">
-            <div className="bg-white sm:h-52 rounded shadow-md sm:flex">
-                <img className="sm:w-1/2 h-full rounded-l-sm bg-slate-300" src={image} alt="Room Image" />
+            <div className="bg-white sm:h-56 rounded shadow-md sm:flex">
+                <img className="sm:w-1/2 h-full rounded-l-sm bg-slate-300" src={image} alt="" />
                 <div className="w-full flex flex-col">
                     <div className="p-4 pb-0 flex-1">
                         <h3 className="font-light mb-1">Model: {name}</h3>
@@ -52,6 +52,7 @@ const {userName, sellarPrice, orignalPrice, name, yearOfUse, image} = product
                                 <i className="text-grey-darker far fa-building"></i> {yearOfUse} used
                             </div>
                         </div>
+                        <p className="text-xs font-light mt-1">Release Date: {date}</p>
                     </div>
                     <Button hendleClick={openModal} castomClass={'rounded-none'}>Book Now</Button>
                 </div>
@@ -60,7 +61,6 @@ const {userName, sellarPrice, orignalPrice, name, yearOfUse, image} = product
             <div>
                 <Modal
                     isOpen={modalIsOpen}
-                    // onAfterOpen={afterOpenModal}
                     onRequestClose={closeModal}
                     style={customStyles}
                     contentLabel="Example Modal"

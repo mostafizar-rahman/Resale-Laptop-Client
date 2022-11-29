@@ -13,6 +13,7 @@ function DashboardSIdebar() {
       .then(res => setUserRole(res))
   }, [user?.email])
  
+  console.log(userRole)
   return (
     <div className=''>
       <div className='bg-[#32c4d7]  h-[calc(100vh-60px)]  px-2 py-4'>

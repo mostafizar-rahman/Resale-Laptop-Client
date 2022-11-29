@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import Button from '../../../Components/Button/Button'
+import { useEffect } from 'react'
 import Card from '../../../Components/Card/Card'
 
 function Products() {
@@ -12,8 +12,6 @@ function Products() {
       return data
     }
   })
-
-
 
 
   return (

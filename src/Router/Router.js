@@ -14,11 +14,13 @@ import ProductWIthCategory from "../Page/ProductWithCategory/ProductWIthCategory
 import PriviteRoute from "./PriviteRoute";
 import MyProduct from "../Page/Dashboard/MyProduct/MyProduct";
 import MyOrders from "../Page/Dashboard/MyOrders/MyOrders";
+import ErrorPage from "../Page/ErrorPage/ErrorPage";
 
 export const router = createBrowserRouter([
     {
         path: '/',
         element: <Main />,
+        errorElement: <ErrorPage />,
         children: [
             {
                 path: '/',
@@ -34,6 +36,7 @@ export const router = createBrowserRouter([
     {
         path: '/login',
         element: <LoginLayout />,
+        errorElement: <ErrorPage />,
         children: [
             {
                 path: '/login',
@@ -48,6 +51,7 @@ export const router = createBrowserRouter([
     {
         path:'/dashboard',
         element:<PriviteRoute><DashboardLayout/></PriviteRoute>,
+        errorElement: <ErrorPage />,
         children:[
             {
                 path:'/dashboard',
