@@ -1,7 +1,7 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import React, { useEffect, useState } from 'react'
 
-function CheckoutForm({ product }) {
+function CheckoutForm({ product, refetch }) {
   const [cardError, setCardError] = useState('')
   const [success, setSuccess] = useState('');
   const [processing, setProcessing] = useState(false);
@@ -89,6 +89,7 @@ function CheckoutForm({ product }) {
           if (data.insertedId) {
             setSuccess('Congrats! your payment completed');
             setTransactionId(paymentIntent.id);
+            refetch()
           }
         })
     }
@@ -108,6 +109,7 @@ function CheckoutForm({ product }) {
                 color: '#424770',
                 '::placeholder': {
                   color: '#aab7c4',
+                  border: 'red'
                 },
               },
               invalid: {
@@ -117,7 +119,7 @@ function CheckoutForm({ product }) {
           }}
         />
         <button
-          className='btn btn-sm mt-4 btn-primary'
+          className='btn btn-sm mt-4 bg-emerald-500 w-full text-center py-2 '
           type="submit"
           disabled={!stripe || !clientSecret || processing}>
           Pay
@@ -130,7 +132,6 @@ function CheckoutForm({ product }) {
           <p>Your transactionId: <span className='font-bold'>{transactionId}</span></p>
         </div>
       }
-      <h1>Hello</h1>
     </>
   )
 }

@@ -6,7 +6,7 @@ import Button from '../Button/Button'
 
 function Card({ product }) {
 
-    const { image, name, orignalPrice, sellarPrice, userName, yearOfUse, verified } = product;
+    const { image, name, orignalPrice, sellarPrice, userName, yearOfUse, verified, date } = product;
     const [modal, setModal] = useState(false)
 
 
@@ -27,14 +27,17 @@ function Card({ product }) {
                                 <span className="text-4xl ">${sellarPrice}<span className="text-lg">/Selling</span></span>
                                 <div className="pr-2 text-xs">$ {orignalPrice} Orignal</div>
                             </div>
-                            <p className="text-sm font-light">Use: {yearOfUse}</p>
+                            <div className='flex justify-between'>
+                                <p className="text-sm font-light">Use: {yearOfUse}</p>
+                                <p className="text-sm font-light">Release Date: {date}</p>
+                            </div>
                         </div>
                     </div>
                     <Button castomClass={'rounded-none'} hendleClick={hendleOpenModal}>Buy Now</Button>
                 </div>
                 {
 
-                    modal ? <BookingModal  modal={modal} setModal={setModal} product={product} /> : ''
+                    modal ? <BookingModal modal={modal} setModal={setModal} product={product} /> : ''
                 }
             </div>
         </div>

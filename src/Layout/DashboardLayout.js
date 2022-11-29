@@ -5,8 +5,8 @@ import DashboardSIdebar from '../Page/Dashboard/DashboardSIdebar/DashboardSIdeba
 import NavbarTop from '../Page/Shared/Navbar/NavbarTop'
 
 function DashboardLayout() {
-    const [toggle, setToggle] = useState(false)
-    const hendleSidebar = () =>{
+    const [toggle, setToggle] = useState(true)
+    const hendleSidebar = () => {
         setToggle(!toggle)
     }
     return (
@@ -15,12 +15,14 @@ function DashboardLayout() {
                 <NavbarTop />
             </div>
             <div className='max-w-[1400px] mx-auto grid grid-cols-[200px_auto] '>
-                <div className={`${toggle ? 'hidden' : 'block'} md:block`}>
+
+                <div className={`${toggle ? 'sm:block'  : 'hidden'}`} >
                     <DashboardSIdebar />
                 </div>
+
                 <div className='md:ml-5 ml-0'>
-                    <div className='block md:hidden'>
-                        <IoMenu onClick={hendleSidebar} className='text-3xl'/>
+                    <div className='block sm:hidden'>
+                        <IoMenu onClick={hendleSidebar} className='text-3xl' />
                     </div>
                     <Outlet />
                 </div>
