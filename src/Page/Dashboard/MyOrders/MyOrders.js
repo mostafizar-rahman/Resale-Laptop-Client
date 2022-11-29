@@ -10,8 +10,9 @@ import PaymentModal from '../PaymentModal/PaymentModal'
 function MyOrders() {
 
     const { user } = useContext(AuthContext)
-    const [prodcuts, setProducts] = useState([])
+    const [products, setProducts] = useState([])
     const [modal, setModal] = useState(false)
+    const [product, setproduct] = useState('')
 
 
     useEffect(() => {
@@ -20,11 +21,12 @@ function MyOrders() {
     }, [user?.email])
 
 
-    const hendleOpenModal = () => {
+    const hendleOpenModal = (product) => {
         setModal(true)
-        console.log('click')
+        setproduct(product)
+        
     }
-
+    
     return (
         <div className='mt-8'>
             {/* -----------Heading------------ */}
@@ -33,7 +35,7 @@ function MyOrders() {
             <div className=" mt-7">
                 <div className="w-full text-xs text-left ">
                     <div>
-                        <div className="bg-gray-300 hidden  sm:grid sm:grid-cols-[100px_auto_auto_auto_auto]">
+                        <div className="bg-gray-300 hidden  sm:grid sm:grid-cols-[10%_15%_30%_10%_15%]">
                             <div className="p-3">No</div>
                             <div className="p-3">Image</div>
                             <div className="p-3">Title</div>
@@ -43,14 +45,14 @@ function MyOrders() {
                     </div>
                     <div className='border-b border-b-gray-300'>
                         {
-                            prodcuts?.length === 0 ?
+                            products?.length === 0 ?
                                 // ------------condaition for loading no item
                                 <div><div className='text-2xl text-yellow-600 '> "No item"</div></div> :
-                                prodcuts?.map((prodcut, index) => {
-                                    const { productName, price, image } = prodcut
+                                products?.map((product, index) => {
+                                    const {productName, price, image } = product
                                     // --------- Review Items
                                     return (
-                                        <div key={prodcut._id} className="grid  sm:grid-cols-[100px_auto_auto_auto_auto] break-words ">
+                                        <div key={product._id} className="grid  sm:grid-cols-[10%_15%_30%_10%_15%] break-words ">
                                             <div className="px-3 py-2 flex items-center">
                                                 <p className='sm:hidden font-semibold text-base'>No: </p>
                                                 <p className='sm:ml-0 ml-3'>{index + 1}</p>
@@ -70,11 +72,9 @@ function MyOrders() {
 
                                             <div className="px-3 py-2 flex items-center">
                                                 <p className='sm:hidden font-semibold text-base'>Payment: </p>
-                                                <Button hendleClick={hendleOpenModal} castomClass={'py-1 sm:ml-0 ml-3'}>Payment</Button>
+                                                <Button hendleClick={()=>hendleOpenModal(product)} castomClass={'py-1 sm:ml-0 ml-3'}>Payment</Button>
                                             </div>
-                                            {
-                                                modal ? <PaymentModal modal={modal} setModal={setModal} price={price} /> : ''
-                                            }
+                                            
                                         </div>
                                     )
                                 })
@@ -82,9 +82,9 @@ function MyOrders() {
                     </div>
                 </div>
             </div>
-            {/* {
-                modal ? <PaymentModal modal={modal} setModal={setModal} /> : ''
-            } */}
+            {
+                modal ? <PaymentModal modal={modal} setModal={setModal} product={product} /> : ''
+            }
         </div>
     )
 }

@@ -1,42 +1,42 @@
+
 import React, { useState } from 'react'
+import { IoCheckmark } from 'react-icons/io5';
 import BookingModal from '../../Page/BookingModal/BookingModal';
 import Button from '../Button/Button'
 
 function Card({ product }) {
-    const { image, name, orignal_price, resale_price, seller_name, years_use } = product;
+
+    const { image, name, orignalPrice, sellarPrice, userName, yearOfUse, verified } = product;
     const [modal, setModal] = useState(false)
+
 
     const hendleOpenModal = () => {
         setModal(true)
     }
-
+    console.log(product)
     return (
         <div className='max-w-[1400px] mx-auto'>
             <div>
-                <div className=" rounded-md shadow-md ">
-                    <img src={image} alt="" className="object-cover object-center w-full rounded-t-md h-72 dark:bg-gray-500" />
+                <div className="shadow-md ">
+                    <img src={image} alt="" className="object-cover object-center w-full  h-72 bg-slate-300" />
                     <div className="flex flex-col justify-between p-6 space-y-8">
                         <div className="space-y-2">
-                            <h2 className="text-xl font-semibold tracking-wide">{name}</h2>
-                            <div className='flex justify-between py-3'>
-                                <p className="text-sm"> <b>Orignal Price:</b> ${orignal_price}</p>
-                                <p className="text-sm"> <b>Resale Price:</b> ${resale_price}</p>
+                            <h2 className="font-light ">Model: {name}</h2>
+                            <p className="text-xs flex items-center">Sellar: {userName}{verified === 'verified' ? <IoCheckmark className='text-green-500 ml-2 text-base font-semibold' /> : ''}</p>
+                            <div className='py-2'>
+                                <span className="text-4xl ">${sellarPrice}<span className="text-lg">/Selling</span></span>
+                                <div className="pr-2 text-xs">$ {orignalPrice} Orignal</div>
                             </div>
-
-                            <p className="text-sm"> <b>Sellar Name:</b> {seller_name}</p>
-                            <p className="text-sm"> <b>Years of use:</b> {years_use}</p>
-
+                            <p className="text-sm font-light">Use: {yearOfUse}</p>
                         </div>
-                        <Button hendleClick={hendleOpenModal}>Buy Now</Button>
                     </div>
+                    <Button castomClass={'rounded-none'} hendleClick={hendleOpenModal}>Buy Now</Button>
                 </div>
-            </div>
-
                 {
 
-                    modal ? <BookingModal modal={modal} setModal={setModal} product={product} /> : ''
+                    modal ? <BookingModal  modal={modal} setModal={setModal} product={product} /> : ''
                 }
-
+            </div>
         </div>
     )
 }

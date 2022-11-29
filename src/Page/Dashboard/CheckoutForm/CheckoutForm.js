@@ -1,24 +1,28 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import React, { useEffect, useState } from 'react'
 
-function CheckoutForm({ price }) {
-  console.log(price)
-
+function CheckoutForm({ product }) {
   const [cardError, setCardError] = useState('')
+  const [success, setSuccess] = useState('');
+  const [processing, setProcessing] = useState(false);
+  const [transactionId, setTransactionId] = useState('');
+  const [clientSecret, setClientSecret] = useState("");
+
   const stripe = useStripe()
   const elements = useElements()
 
-  const [clientSecret, setClientSecret] = useState("");
+  const { buyerName, email, price, _id } = product
+
 
   useEffect(() => {
     fetch("http://localhost:5000/create-payment-intent", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ price: 5000 }),
+      body: JSON.stringify({ price }),
     })
       .then((res) => res.json())
       .then((data) => setClientSecret(data.clientSecret));
-  }, []);
+  }, [price]);
 
 
   const handleSubmit = async (event) => {
@@ -44,10 +48,8 @@ function CheckoutForm({ price }) {
     } else {
       setCardError('')
     }
-
-
-
-
+    setSuccess('');
+    setProcessing(true);
 
     const { paymentIntent, error: confomrError } = await stripe.confirmCardPayment(
       clientSecret,
@@ -55,7 +57,8 @@ function CheckoutForm({ price }) {
         payment_method: {
           card: card,
           billing_details: {
-            name: 'Jenny Rosen',
+            name: buyerName,
+            email: email,
           },
         },
       },
@@ -65,35 +68,70 @@ function CheckoutForm({ price }) {
       setCardError(confomrError.message)
       return
     }
-    else {
-      console.log('paymentIntent', paymentIntent)
+
+    if (paymentIntent.status === "succeeded") {
+      const payment = {
+        price,
+        transactionId: paymentIntent.id,
+        email,
+        productId: _id
+      }
+      fetch('http://localhost:5000/payments', {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify(payment)
+      })
+        .then(res => res.json())
+        .then(data => {
+          console.log(data);
+          if (data.insertedId) {
+            setSuccess('Congrats! your payment completed');
+            setTransactionId(paymentIntent.id);
+          }
+        })
     }
+
+    setProcessing(false)
 
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <CardElement
-        options={{
-          style: {
-            base: {
-              fontSize: '16px',
-              color: '#424770',
-              '::placeholder': {
-                color: '#aab7c4',
+    <>
+      <form onSubmit={handleSubmit}>
+        <CardElement
+          options={{
+            style: {
+              base: {
+                fontSize: '16px',
+                color: '#424770',
+                '::placeholder': {
+                  color: '#aab7c4',
+                },
+              },
+              invalid: {
+                color: '#9e2146',
               },
             },
-            invalid: {
-              color: '#9e2146',
-            },
-          },
-        }}
-      />
-      <p>{cardError}</p>
-      <button className='btn bg-white' type="submit" disabled={!stripe}>
-        Pay
-      </button>
-    </form>
+          }}
+        />
+        <button
+          className='btn btn-sm mt-4 btn-primary'
+          type="submit"
+          disabled={!stripe || !clientSecret || processing}>
+          Pay
+        </button>
+        <p className="text-red-500">{cardError}</p>
+      </form>
+      {
+        success && <div>
+          <p className='text-green-500'>{success}</p>
+          <p>Your transactionId: <span className='font-bold'>{transactionId}</span></p>
+        </div>
+      }
+      <h1>Hello</h1>
+    </>
   )
 }
 

@@ -4,7 +4,6 @@ import DashboardLayout from "../Layout/DashboardLayout";
 import LoginLayout from "../Layout/LoginLayout";
 import Main from "../Layout/Main";
 import AddProduct from "../Page/Dashboard/AddProduct/AddProduct";
-import Admin from "../Page/Dashboard/Admin/Admin";
 import Buyers from "../Page/Dashboard/Buyers/Buyers";
 import Dashboard from "../Page/Dashboard/Dashboard/Dashboard";
 import Seller from "../Page/Dashboard/Seller/Seller";
@@ -61,10 +60,6 @@ export const router = createBrowserRouter([
             {
                 path:'/dashboard/seller',
                 element:<Seller/>
-            },
-            {
-                path:'/dashboard/admin',
-                element:<Admin/>
             },
             {
                 path:'/dashboard/myProduct',

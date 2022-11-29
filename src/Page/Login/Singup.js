@@ -8,35 +8,17 @@ import { AuthContext } from '../../Context/AuthProvider'
 function Singup() {
     const { userRegister, userUpdateProfile, userLoginWithGoogle } = useContext(AuthContext)
 
-    const [varify, setVarify] = useState('')
     const [error, setError] = useState('')
-    const [imageUrl, setImageUrl] = useState('')
+    const [imageUrl, setImageUrl] = useState(null)
     const location = useLocation()
     const navigate = useNavigate()
     const url = location.state?.from?.pathname || '/'
 
-    console.log(imageUrl)
-    const handleFormSubmit = (event) => {
-        event.preventDefault()
-        const form = event.target;
-        const email = form.email.value;
-        const password = form.password.value;
-        const name = form.username.value;
-        const image = form.photo.files[0];
-        const userRole = form.userRole.value;
 
-        // Simple Form validation
-        if (name.length < 5) {
-            setVarify('Name enter min 5 character ')
-        }
-        else if (password.length < 6) {
-            setVarify('Password enter min 6 character ')
-        }
-        else {
-            setVarify('')
-        }
+    const imageUplode = (event) => {
+        const image = event.target.files[0];
 
-        // Post photo imbb server and get photo link
+        // Post image imbb server and get image link
         const formData = new FormData()
         formData.append("image", image)
 
@@ -46,53 +28,62 @@ function Singup() {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data)
+                console.log(data.data.url)
                 setImageUrl(data.data.url)
-                
-            })
 
-        // Create account 
-        userRegister(email, password)
-            .then(result => {
-                console.log(result.user)
-                console.log(imageUrl)
-                // Update prifile [name and image]
-                const updateUser = {
-                    displayName: name,
-                    photoURL: imageUrl
-                }
-                console.log(updateUser)
-                userUpdateProfile(updateUser)
-                    .then(() => {
-                        
-                        // Send user info in database
-                        const userInfo = {
-                            email,
-                            name,
-                            userRole
-                        }
-                        fetch('http://localhost:5000/user', {
-                            method: 'POST',
-                            headers: {
-                                'content-type': 'application/json'
-                            },
-                            body: JSON.stringify(userInfo)
+            })
+    }
+
+    console.log(imageUrl)
+    const handleFormSubmit = (event) => {
+        event.preventDefault()
+        const form = event.target;
+        const email = form.email.value;
+        const password = form.password.value;
+        const name = form.username.value;
+        const userRole = form.userRole.value;
+        const verified = form.verified.value;
+
+
+
+        console.log(imageUrl)
+        if (imageUrl) {
+            // Create account 
+            userRegister(email, password)
+                .then(result => {
+                    userUpdateProfile(name, imageUrl)
+                        .then(() => {
+                            // Navigate 
+                            navigate(url, { replace: true })
                         })
-                            .then(res => res.json())
-                            .then(data => console.log(data))
+                        .catch(err => console.log(err))
 
-                        // Navigate 
-                        navigate(url, { replace: true })
+                    // Send user info save in database
+                    const userInfo = {
+                        email,
+                        name,
+                        userRole,
+                        verified
+                    }
+                    fetch('http://localhost:5000/user', {
+                        method: 'POST',
+                        headers: {
+                            'content-type': 'application/json'
+                        },
+                        body: JSON.stringify(userInfo)
                     })
-                    .catch(err => console.log(err))
+                        .then(res => res.json())
+                        .then(data => console.log(data))
+                    form.reset()
+                })
+                .catch(error => {
+                    console.log(error)
+                    const errorCode = error.code.slice(5, -1);
+                    setError(errorCode)
+                })
+        }
 
-                form.reset()
-            })
-            .catch(error => {
-                console.log(error)
-                const errorCode = error.code.slice(5, -1);
-                setError(errorCode)
-            })
+
     }
 
     // Login with google
@@ -126,10 +117,11 @@ function Singup() {
                                     <input type="password" name="password" placeholder="Password" className="w-full px-4 py-3 rounded-md border border-gray-300" />
                                 </div>
                                 <div className="space-y-1 text-sm">
-                                    <input type="file" name="photo" className="w-full py-3 " />
+                                    <input onChange={imageUplode} type="file" name="image" className="w-full py-3 " />
+                                    {/* <input type="text" name="image" className="w-full py-3 " /> */}
                                 </div>
                                 <div className=" text-sm flex items-center space-x-4">
-                                    <label className="block">Chooce your account</label>
+                                    <label className="block">Chooce account type</label>
                                     <label htmlFor="buyer" className='flex items-center'>
                                         <input type="radio" id='buyer' name="userRole" defaultValue='buyer' defaultChecked />
                                         <span className="ml-1">Buyer</span>
@@ -139,7 +131,18 @@ function Singup() {
                                         <span className="ml-1">Seller</span>
                                     </label>
                                 </div>
-                                <i className='text-red-600 '>{varify}</i>
+                                <div className=" text-sm flex items-center space-x-4">
+                                    <label className="block">Request for verified</label>
+                                    <label htmlFor="unverified" className='flex items-center'>
+                                        <input type="radio" id='unverified' name="verified" defaultValue='unverified' defaultChecked />
+                                        <span className="ml-1">Unverified</span>
+                                    </label>
+                                    <label htmlFor="verified" className='flex items-center'>
+                                        <input type="radio" id='verified' name="verified" defaultValue='verified' />
+                                        <span className="ml-1">Verified</span>
+                                    </label>
+                                </div>
+
                                 <div className='pt-5'>
                                     <Button>Sing up</Button>
                                 </div>

@@ -1,10 +1,20 @@
-import React, { useContext } from 'react'
+import axios from 'axios'
+import React, { useContext, useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
 import Button from '../../../Components/Button/Button'
 import { AuthContext } from '../../../Context/AuthProvider'
 
 function AddProduct() {
 
-  const {user} = useContext(AuthContext)
+  const { user } = useContext(AuthContext)
+  const [verified, setVerified] = useState('')
+
+  useEffect(() => {
+    axios.get(`http://localhost:5000/user?email=${user?.email}`)
+      .then(res => setVerified(res.data.verified))
+  }, [user?.email])
+
+  console.log(verified)
 
   const hendleAddProductSubmit = (event) => {
     event.preventDefault()
@@ -44,10 +54,10 @@ function AddProduct() {
           image: data.data.url,
           cata_id: category,
           userName: user.displayName,
-          userEmail: user.email
+          userEmail: user.email,
+          verified
         }
 
-console.log(category)
         fetch('http://localhost:5000/addProducts', {
           method: 'POST',
           headers: {
@@ -56,7 +66,12 @@ console.log(category)
           body: JSON.stringify(productInfo)
         })
           .then(res => res.json())
-          .then(data => console.log(data))
+          .then(data => {
+            if (data) {
+              toast.success('Added Success Full')
+              form.reset()
+            }
+          })
 
         fetch('http://localhost:5000/addNewistProduct', {
           method: 'POST',
@@ -66,7 +81,7 @@ console.log(category)
           body: JSON.stringify(productInfo)
         })
           .then(res => res.json())
-          .then(data => console.log(data))
+          .then(data => { })
 
         // Added category
         fetch('http://localhost:5000/categorys', {

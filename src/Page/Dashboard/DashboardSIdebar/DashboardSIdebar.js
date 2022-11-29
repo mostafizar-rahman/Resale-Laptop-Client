@@ -12,10 +12,9 @@ function DashboardSIdebar() {
     axios.get(`http://localhost:5000/user?email=${user?.email}`)
       .then(res => setUserRole(res))
   }, [user?.email])
-  console.log(userRole.data?.userRole)
-
+ 
   return (
-    <div className='hidden md:block'>
+    <div className=''>
       <div className='bg-[#32c4d7]  h-[calc(100vh-60px)]  px-2 py-4'>
         <div className='space-y-6 mt-5'>
           <Link to='/' className='flex justify-center'>
@@ -25,9 +24,9 @@ function DashboardSIdebar() {
           {
             userRole.data?.userRole === 'admin' &&
             <>
-              <Link to='/dashboard/admin'>Admin</Link>
-              <Link to='/dashboard/buyer'>Buyer</Link>
-              <Link to='/dashboard/seller'>Seller</Link> 
+              
+              <Link to='/dashboard/buyer' className='text-white font-semibold underline text-center block '>Buyer</Link>
+              <Link to='/dashboard/seller' className='text-white font-semibold underline text-center block '>Seller</Link> 
             </>
           }
           {

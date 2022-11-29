@@ -5,12 +5,12 @@ import Button from '../../../Components/Button/Button'
 import CheckoutForm from '../CheckoutForm/CheckoutForm'
 
 const stripePromise = loadStripe('pk_test_51M8RDNLKi6AEIY80yxHYLCurBYW1K4s22fHl5kOG8SmTonxBPPVSaYL2b7fXWXGDisMU7wjHEUxTUmmfRhYZCwM5001t4Ehq11');
-function PaymentModal({ modal, setModal }) {
+function PaymentModal({ modal, setModal, product }) {
 
     const hendleCloseModal = () => {
         setModal(false)
     }
-
+    console.log(product)
 
     return (
         <div>
@@ -25,7 +25,7 @@ function PaymentModal({ modal, setModal }) {
                             <hr />
                             <div className='flex flex-col space-y-3 mt-5'>
                                 <Elements stripe={stripePromise}>
-                                    <CheckoutForm />
+                                    <CheckoutForm product={product} />
                                 </Elements>
                             </div>
                             <div className='w-32 mt-5'>

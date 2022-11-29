@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react'
+import toast from 'react-hot-toast';
 import { IoCloseCircle } from "react-icons/io5";
 import Button from '../../Components/Button/Button';
 import { AuthContext } from '../../Context/AuthProvider';
@@ -19,19 +20,25 @@ function BookingModal({ product, modal, setModal }) {
             email: user?.email,
             number,
             location,
-            price: product.resale_price,
+            price: product.sellarPrice,
             image: product.image,
 
 
         }
-        fetch('http://localhost:5000/product',{
-            method:'POST',
-            headers:{
-                'content-type':'application/json'
+        fetch('http://localhost:5000/product', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
             },
-            body:JSON.stringify(products)
+            body: JSON.stringify(products)
         })
-        console.log(products)
+            .then(data => {
+                if (data) {
+                    toast.success('Added Success Full')
+                    setModal(false)
+                }
+            })
+            .catch(err => console.log(err))
     }
 
     return (
@@ -48,7 +55,7 @@ function BookingModal({ product, modal, setModal }) {
                             <div className='flex flex-col space-y-3 mt-5'>
                                 <p><b>Name:</b> {user?.displayName}</p>
                                 <p><b>Email:</b> {user?.email}</p>
-                                <p><b>Price:</b> ${product.resale_price}</p>
+                                <p><b>Price:</b> ${product.sellarPrice}</p>
                                 <input onBlur={(e) => setNumber(e.target.value)} type="number" name="" placeholder='Enter your phone number' className='max-w-[400px] w-full h-10 px-3' />
                                 <textarea onBlur={(e) => setLocation(e.target.value)} name="" placeholder='Meeting Location' className='max-w-[400px] w-full h-36 px-3'></textarea>
                             </div>

@@ -18,8 +18,15 @@ function MyProduct() {
       headers: {
         'content-type': 'application/json'
       },
-      body: JSON.stringify({ads: 'advertised'})
+      body: JSON.stringify({ ads: 'advertised' })
     })
+  }
+
+  const hendleDelete = (id) => {
+    axios.delete(`http://localhost:5000/myProduct/${id}`)
+      .then(res => console.log(res))
+    const newProduct = products.filter(prd => prd._id !== id)
+    setProduct(newProduct)
   }
 
 
@@ -76,7 +83,7 @@ function MyProduct() {
                           <p className='lg:hidden font-semibold text-base'>Action: </p>
                           <div className='flex gap-5 items-center flex-wrap'>
                             <Button hendleClick={() => hendleAds(_id)}>Advirtis</Button>
-                            <Button>Delet</Button>
+                            <Button hendleClick={() => hendleDelete(_id)}>Delet</Button>
                           </div>
                         </div>
                       </div>
