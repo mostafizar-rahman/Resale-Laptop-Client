@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import Button from '../../Components/Button/Button'
 import { AuthContext } from '../../Context/AuthProvider'
+import useTitle from '../../Hooks/useTItle'
 
 
 function Login() {
@@ -9,6 +10,7 @@ function Login() {
     const { userLogin, userLoginWithGoogle } = useContext(AuthContext)
     const location = useLocation()
     const navigate = useNavigate()
+    useTitle('Login')
     const [error, setError] = useState('')
     const url = location.state?.from?.pathname || '/'
 
@@ -38,7 +40,7 @@ function Login() {
                     name: result.user.displayName,
                     userRole: 'buyer'
                 }
-                fetch('http://localhost:5000/user', {
+                fetch('https://module-78-server.vercel.app/user', {
                     method: 'PUT',
                     headers: {
                         'content-type': 'application/json'

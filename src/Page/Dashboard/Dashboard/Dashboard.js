@@ -1,8 +1,10 @@
 import React, { useContext } from 'react'
 import { AuthContext } from '../../../Context/AuthProvider'
+import useTitle from '../../../Hooks/useTItle'
 
 function Dashboard() {
   const {user} = useContext(AuthContext)
+  useTitle('Dashbord')
   return (
     <div className='max-w-[1400px] h-[calc(100vh-60px)]  mx-auto flex justify-center items-center'>
       <div className='text-center'>

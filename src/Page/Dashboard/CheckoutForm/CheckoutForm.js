@@ -1,5 +1,6 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import React, { useEffect, useState } from 'react'
+import useTitle from '../../../Hooks/useTItle';
 
 function CheckoutForm({ product, refetch }) {
   const [cardError, setCardError] = useState('')
@@ -10,12 +11,13 @@ function CheckoutForm({ product, refetch }) {
 
   const stripe = useStripe()
   const elements = useElements()
+  useTitle('Checkout')
 
-  const { buyerName, email, price, _id, productId } = product
-
+  const { buyerName, email, price, _id, orignalProductId } = product
+  console.log(orignalProductId)
 
   useEffect(() => {
-    fetch("http://localhost:5000/create-payment-intent", {
+    fetch("https://module-78-server.vercel.app/create-payment-intent", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ price }),
@@ -76,7 +78,7 @@ function CheckoutForm({ product, refetch }) {
         email,
         bookingProductId: _id
       }
-      fetch('http://localhost:5000/payments', {
+      fetch('https://module-78-server.vercel.app/payments', {
         method: 'POST',
         headers: {
           'content-type': 'application/json',
@@ -93,10 +95,10 @@ function CheckoutForm({ product, refetch }) {
 
 
       const x = {
-        orginalProductId: productId
+        orginalProductId: orignalProductId
 
       }
-      fetch('http://localhost:5000/payments', {
+      fetch('https://module-78-server.vercel.app/payments', {
         method: 'PUT',
         headers: {
           'content-type': 'application/json',

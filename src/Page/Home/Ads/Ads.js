@@ -7,7 +7,7 @@ function Ads() {
 
     const [prodcuts, setProducts] = useState([])
     useEffect(() => {
-        axios.get(`http://localhost:5000/adsProduct`)
+        axios.get(`https://module-78-server.vercel.app/adsProduct`)
             .then(res => setProducts(res.data))
     }, [])
 
@@ -28,13 +28,7 @@ function Ads() {
         <div className={`${prodcuts.length === 0 ? 'hidden' : 'block'} sm:w-[32rem]  mx-auto`}>
             <Slider {...settings}>
                 {
-                    prodcuts.map((product, index) => {
-                        return (
-                            <div>
-                                <AdsCard key={index} product={product} />
-                            </div>
-                        )
-                    })
+                    prodcuts.map((product, index) => <AdsCard key={index} product={product} />)
                 }
             </Slider>
         </div>

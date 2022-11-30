@@ -4,7 +4,7 @@ import { IoCloseCircle } from "react-icons/io5";
 import Button from '../../Components/Button/Button';
 import { AuthContext } from '../../Context/AuthProvider';
 
-function BookingModal({ product, modal, setModal }) {
+function BookingModal({ product, modal, setModal, orignalProductId }) {
     const { user } = useContext(AuthContext)
     const [number, setNumber] = useState('')
     const [location, setLocation] = useState('')
@@ -15,7 +15,7 @@ function BookingModal({ product, modal, setModal }) {
 
     const hendleAddDbProduct = () => {
         const products = {
-            productId: product._id,
+            orignalProductId: orignalProductId,
             productName: product.name,
             buyerName: user?.displayName,
             email: user?.email,
@@ -24,7 +24,7 @@ function BookingModal({ product, modal, setModal }) {
             price: product.sellarPrice,
             image: product.image,
         }
-        fetch('http://localhost:5000/product', {
+        fetch('https://module-78-server.vercel.app/product', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

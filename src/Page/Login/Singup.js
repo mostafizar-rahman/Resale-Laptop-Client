@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import Button from '../../Components/Button/Button'
 import { AuthContext } from '../../Context/AuthProvider'
+import useTitle from '../../Hooks/useTItle'
 
 
 
@@ -10,6 +11,7 @@ function Singup() {
 
     const [error, setError] = useState('')
     const [imageUrl, setImageUrl] = useState(null)
+    useTitle('Singup')
     const location = useLocation()
     const navigate = useNavigate()
     const url = location.state?.from?.pathname || '/'
@@ -41,7 +43,6 @@ function Singup() {
         const password = form.password.value;
         const name = form.username.value;
         const userRole = form.userRole.value;
-        const verified = form.verified.value;
 
         if (imageUrl) {
             // Create account 
@@ -59,9 +60,8 @@ function Singup() {
                         email,
                         name,
                         userRole,
-                        verified
                     }
-                    fetch('http://localhost:5000/user', {
+                    fetch('https://module-78-server.vercel.app/user', {
                         method: 'PUT',
                         headers: {
                             'content-type': 'application/json'
@@ -90,7 +90,7 @@ function Singup() {
                     name: result.user.displayName,
                     userRole: 'buyer'
                 }
-                fetch('http://localhost:5000/user', {
+                fetch('https://module-78-server.vercel.app/user', {
                     method: 'PUT',
                     headers: {
                         'content-type': 'application/json'
@@ -140,17 +140,7 @@ function Singup() {
                                         <span className="ml-1">Seller</span>
                                     </label>
                                 </div>
-                                <div className=" text-sm flex items-center space-x-4">
-                                    <label className="block">Request for verified</label>
-                                    <label htmlFor="unverified" className='flex items-center'>
-                                        <input type="radio" id='unverified' name="verified" defaultValue='unverified' defaultChecked />
-                                        <span className="ml-1">Unverified</span>
-                                    </label>
-                                    <label htmlFor="verified" className='flex items-center'>
-                                        <input type="radio" id='verified' name="verified" defaultValue='verified' />
-                                        <span className="ml-1">Verified</span>
-                                    </label>
-                                </div>
+                              
 
                                 <div className='pt-5'>
                                     <Button>Sing up</Button>

@@ -18,13 +18,12 @@ function MyOrders() {
     const { data: products = [], refetch } = useQuery({
         queryKey: ['product', user?.email],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/product?email=${user?.email}`)
+            const res = await fetch(`https://module-78-server.vercel.app/product?email=${user?.email}`)
             const data = await res.json()
             return data
         },
     })
-
-    console.log(products)
+console.log(products)
     const hendleOpenModal = (product) => {
         setModal(true)
         setproduct(product)
@@ -32,7 +31,7 @@ function MyOrders() {
 
 
     const hendleDelete = (id) => {
-        axios.delete(`http://localhost:5000/product/${id}`)
+        axios.delete(`https://module-78-server.vercel.app/product/${id}`)
             .then(res => console.log(res))
         refetch()
 

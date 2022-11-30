@@ -7,14 +7,14 @@ import { AuthContext } from '../../../Context/AuthProvider'
 function AddProduct() {
 
   const { user } = useContext(AuthContext)
-  const [verified, setVerified] = useState('')
+  const [verifiedStatud, setverifiedStatud] = useState('')
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/user?email=${user?.email}`)
-      .then(res => setVerified(res.data.verified))
+    axios.get(`https://module-78-server.vercel.app/user?email=${user?.email}`)
+      .then(res => setverifiedStatud(res.data.verifiedStatud))
   }, [user?.email])
 
-  console.log(verified)
+
 
   const hendleAddProductSubmit = (event) => {
     event.preventDefault()
@@ -55,10 +55,10 @@ function AddProduct() {
           cata_id: category,
           userName: user.displayName,
           userEmail: user.email,
-          verified
+          verifiedStatud
         }
 
-        fetch('http://localhost:5000/addProducts', {
+        fetch('https://module-78-server.vercel.app/addProducts', {
           method: 'POST',
           headers: {
             'content-type': 'application/json'
@@ -73,7 +73,7 @@ function AddProduct() {
             }
           })
 
-        fetch('http://localhost:5000/addNewistProduct', {
+        fetch('https://module-78-server.vercel.app/addNewistProduct', {
           method: 'POST',
           headers: {
             'content-type': 'application/json'
@@ -84,7 +84,7 @@ function AddProduct() {
           .then(data => { })
 
         // Added category
-        fetch('http://localhost:5000/categorys', {
+        fetch('https://module-78-server.vercel.app/categorys', {
           method: 'PUT',
           headers: {
             'content-type': 'application/json'

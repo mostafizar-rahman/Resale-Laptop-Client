@@ -8,12 +8,12 @@ function MyProduct() {
   const { user } = useContext(AuthContext)
   const [products, setProduct] = useState([])
   useEffect(() => {
-    axios.get(`http://localhost:5000/myProduct?email=${user?.email}`)
+    axios.get(`https://module-78-server.vercel.app/myProduct?email=${user?.email}`)
       .then(res => setProduct(res.data))
   }, [user?.email])
 
   const hendleAds = (id) => {
-    fetch(`http://localhost:5000/addProducts/${id}`, {
+    fetch(`https://module-78-server.vercel.app/addProducts/${id}`, {
       method: 'PUT',
       headers: {
         'content-type': 'application/json'
@@ -23,7 +23,7 @@ function MyProduct() {
   }
 
   const hendleDelete = (id) => {
-    axios.delete(`http://localhost:5000/myProduct/${id}`)
+    axios.delete(`https://module-78-server.vercel.app/myProduct/${id}`)
       .then(res => console.log(res))
     const newProduct = products.filter(prd => prd._id !== id)
     setProduct(newProduct)
@@ -35,7 +35,7 @@ function MyProduct() {
     <div className='mt-8'>
       <div className="">
         {/* -----------Heading------------ */}
-        <h1 className='text-4xl font-bold'>My Reviews</h1>
+        <h1 className='text-4xl font-bold'>My Product</h1>
         {/* -----------div------------ */}
         <div className=" mt-7">
           <div className="w-full text-xs text-left ">
@@ -56,7 +56,7 @@ function MyProduct() {
                   <div><div className='text-2xl text-yellow-600'> "No item"</div></div> :
                   products.map(product => {
                     // --------- Review Items
-                    const { _id, date, userEmail, phoneNumber, sellarPrice, name } = product
+                    const { _id, date, userEmail, phoneNumber, sellarPrice, name,  } = product
                     return (
                       <div key={_id} className="grid lg:grid-cols-[20%_10%_15%_20%_15%_20%] md:grid-cols-[1fr_1fr_1fr] break-words">
                         <div className="px-3 py-2">

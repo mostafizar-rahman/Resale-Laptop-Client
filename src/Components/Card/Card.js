@@ -1,16 +1,17 @@
 
 import axios from 'axios';
-import React, {useState } from 'react'
+import React, {useContext, useState } from 'react'
 import toast from 'react-hot-toast';
 import { IoCheckmark } from 'react-icons/io5';
+import { AuthContext } from '../../Context/AuthProvider';
 import BookingModal from '../../Page/BookingModal/BookingModal';
 import Button from '../Button/Button'
 
 function Card({ product }) {
-    const { image, name, orignalPrice, sellarPrice, userName, yearOfUse, verified, date } = product;
+    const {user} = useContext(AuthContext)
+    const {_id, image, name, orignalPrice, sellarPrice, userName, yearOfUse, verifiedStatud, date } = product;
     const [modal, setModal] = useState(false)
-
-
+    console.log(product)
     const hendleOpenModal = () => {
         setModal(true)
     }
@@ -24,10 +25,13 @@ function Card({ product }) {
             userName,
             yearOfUse,
             date,
-            verified,
+            verifiedStatud,
+            email: user.email,
+            userName: user.displayName,
+            orignalProductId: _id
 
         }
-        fetch('http://localhost:5000/whiteList', {
+        fetch('https://module-78-server.vercel.app/whiteList', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -48,7 +52,7 @@ function Card({ product }) {
                     <div className="flex flex-col justify-between p-6 space-y-8">
                         <div className="space-y-2">
                             <h2 className="font-light ">Model: {name}</h2>
-                            <p className="text-xs flex items-center">Sellar: {userName}{verified === 'verified' ? <IoCheckmark className='text-green-500 ml-2 text-base font-semibold' /> : ''}</p>
+                            <p className="text-xs flex items-center">Sellar: {userName}{verifiedStatud === 'verifide' ? <IoCheckmark className='text-green-500 ml-2 text-base font-semibold' /> : ''}</p>
                             <div className='py-2'>
                                 <span className="text-4xl ">${sellarPrice}<span className="text-lg">/Selling</span></span>
                                 <div className="pr-2 text-xs">$ {orignalPrice} Orignal</div>
@@ -65,7 +69,7 @@ function Card({ product }) {
                     </div>
                 </div>
                 {
-                    modal ? <BookingModal modal={modal} setModal={setModal} product={product} /> : ''
+                    modal ? <BookingModal modal={modal} setModal={setModal} product={product} orignalProductId={_id} /> : ''
                 }
             </div>
         </div>

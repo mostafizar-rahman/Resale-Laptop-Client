@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { Navigate, useLocation } from 'react-router-dom'
+import Loader from '../Components/Loader/Loader'
 import { AuthContext } from '../Context/AuthProvider'
 
 function PriviteRoute({ children }) {
@@ -7,7 +8,7 @@ function PriviteRoute({ children }) {
     const location = useLocation()
 
     if(loading){
-        return <p>loading...</p>
+        return <Loader/>
     }
     if (user) {
         return children
