@@ -1,11 +1,12 @@
 
-import React, { useState } from 'react'
+import axios from 'axios';
+import React, {useState } from 'react'
+import toast from 'react-hot-toast';
 import { IoCheckmark } from 'react-icons/io5';
 import BookingModal from '../../Page/BookingModal/BookingModal';
 import Button from '../Button/Button'
 
 function Card({ product }) {
-
     const { image, name, orignalPrice, sellarPrice, userName, yearOfUse, verified, date } = product;
     const [modal, setModal] = useState(false)
 
@@ -13,7 +14,32 @@ function Card({ product }) {
     const hendleOpenModal = () => {
         setModal(true)
     }
-    console.log(product)
+
+    const hendleAddWhiteList = () => {
+        const whiteListProduct = {
+            image,
+            name,
+            orignalPrice, 
+            sellarPrice,
+            userName,
+            yearOfUse,
+            date,
+            verified,
+
+        }
+        fetch('http://localhost:5000/whiteList', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(whiteListProduct)
+        })
+            .then(res => res.json())
+            .then(data => {
+                toast.success('Product Add WhiteList')
+            })
+    }
+
     return (
         <div className='max-w-[1400px] mx-auto'>
             <div>
@@ -33,10 +59,12 @@ function Card({ product }) {
                             </div>
                         </div>
                     </div>
-                    <Button castomClass={'rounded-none'} hendleClick={hendleOpenModal}>Buy Now</Button>
+                    <div className='grid grid-cols-2'>
+                        <Button castomClass={'rounded-none'} hendleClick={hendleOpenModal}>Buy Now</Button>
+                        <Button castomClass={'rounded-none'} hendleClick={hendleAddWhiteList}>Add WhiteList</Button>
+                    </div>
                 </div>
                 {
-
                     modal ? <BookingModal modal={modal} setModal={setModal} product={product} /> : ''
                 }
             </div>

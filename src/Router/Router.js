@@ -15,6 +15,8 @@ import PriviteRoute from "./PriviteRoute";
 import MyProduct from "../Page/Dashboard/MyProduct/MyProduct";
 import MyOrders from "../Page/Dashboard/MyOrders/MyOrders";
 import ErrorPage from "../Page/ErrorPage/ErrorPage";
+import Block from "../Block/Block";
+import WhiteList from "../Page/Dashboard/WhiteList/WhiteList";
 
 export const router = createBrowserRouter([
     {
@@ -30,6 +32,10 @@ export const router = createBrowserRouter([
                 path:'/products/:cata_id',
                 element: <ProductWIthCategory/>,
                 loader: async ({params}) => fetch(`http://localhost:5000/products/${params.cata_id}`)
+            },
+            {
+                path:'/block',
+                element: <Block/>
             }
         ]
     },
@@ -76,6 +82,10 @@ export const router = createBrowserRouter([
             {
                 path:'/dashboard/myOrders',
                 element:<MyOrders/>
+            },
+            {
+                path:'/dashboard/whiteList',
+                element:<WhiteList/>
             }
         ]
     }

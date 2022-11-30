@@ -11,7 +11,7 @@ function CheckoutForm({ product, refetch }) {
   const stripe = useStripe()
   const elements = useElements()
 
-  const { buyerName, email, price, _id } = product
+  const { buyerName, email, price, _id, productId } = product
 
 
   useEffect(() => {
@@ -74,7 +74,7 @@ function CheckoutForm({ product, refetch }) {
         price,
         transactionId: paymentIntent.id,
         email,
-        productId: _id
+        bookingProductId: _id
       }
       fetch('http://localhost:5000/payments', {
         method: 'POST',
@@ -85,13 +85,31 @@ function CheckoutForm({ product, refetch }) {
       })
         .then(res => res.json())
         .then(data => {
-          console.log(data);
           if (data.insertedId) {
             setSuccess('Congrats! your payment completed');
             setTransactionId(paymentIntent.id);
-            refetch()
           }
         })
+
+
+      const x = {
+        orginalProductId: productId
+
+      }
+      fetch('http://localhost:5000/payments', {
+        method: 'PUT',
+        headers: {
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify(x)
+      })
+        .then(res => res.json())
+        .then(data => {
+          console.log(data)
+          refetch()
+        })
+
+
     }
 
     setProcessing(false)

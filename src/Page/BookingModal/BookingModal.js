@@ -15,6 +15,7 @@ function BookingModal({ product, modal, setModal }) {
 
     const hendleAddDbProduct = () => {
         const products = {
+            productId: product._id,
             productName: product.name,
             buyerName: user?.displayName,
             email: user?.email,
@@ -22,8 +23,6 @@ function BookingModal({ product, modal, setModal }) {
             location,
             price: product.sellarPrice,
             image: product.image,
-
-
         }
         fetch('http://localhost:5000/product', {
             method: 'POST',

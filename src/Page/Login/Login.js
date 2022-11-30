@@ -32,7 +32,21 @@ function Login() {
 
     const handleGoogleLogin = () => {
         userLoginWithGoogle()
-            .then(() => {
+            .then((result) => {
+                const userInfo = {
+                    email: result.user.email,
+                    name: result.user.displayName,
+                    userRole: 'buyer'
+                }
+                fetch('http://localhost:5000/user', {
+                    method: 'PUT',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(userInfo)
+                })
+                    .then(res => res.json())
+                    .then(data => console.log(data))
                 navigate(url, { replace: true })
             })
             .catch(err => console.log(err))

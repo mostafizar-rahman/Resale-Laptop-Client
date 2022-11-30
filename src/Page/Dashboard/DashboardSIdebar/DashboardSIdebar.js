@@ -12,7 +12,7 @@ function DashboardSIdebar() {
     axios.get(`http://localhost:5000/user?email=${user?.email}`)
       .then(res => setUserRole(res))
   }, [user?.email])
- 
+
   console.log(userRole)
   return (
     <div className=''>
@@ -25,22 +25,23 @@ function DashboardSIdebar() {
           {
             userRole.data?.userRole === 'admin' &&
             <>
-              
+
               <Link to='/dashboard/buyer' className='text-white font-semibold underline text-center block '>Buyer</Link>
-              <Link to='/dashboard/seller' className='text-white font-semibold underline text-center block '>Seller</Link> 
+              <Link to='/dashboard/seller' className='text-white font-semibold underline text-center block '>Seller</Link>
             </>
           }
           {
             userRole.data?.userRole === 'buyer' &&
-            <Link to='/dashboard/myOrders' className='text-white font-semibold underline text-center block '>
-              My Orders
-            </Link>
+            <>
+              <Link to='/dashboard/myOrders' className='text-white font-semibold underline text-center block '> My Orders </Link>
+              <Link to='/dashboard/whiteList' className='text-white font-semibold underline text-center block '> White List </Link>
+            </>
           }
           {
             userRole.data?.userRole === 'seller' &&
             <>
               <Link to='/dashboard/myProduct' className='text-white font-semibold underline text-center block '>My Product</Link>
-              <Link to='/dashboard/addProduct' className='text-white font-semibold underline text-center block '>Add Prodcut</Link> 
+              <Link to='/dashboard/addProduct' className='text-white font-semibold underline text-center block '>Add Prodcut</Link>
             </>
           }
 

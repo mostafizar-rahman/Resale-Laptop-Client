@@ -34,7 +34,6 @@ function Singup() {
             })
     }
 
-    console.log(imageUrl)
     const handleFormSubmit = (event) => {
         event.preventDefault()
         const form = event.target;
@@ -44,9 +43,6 @@ function Singup() {
         const userRole = form.userRole.value;
         const verified = form.verified.value;
 
-
-
-        console.log(imageUrl)
         if (imageUrl) {
             // Create account 
             userRegister(email, password)
@@ -66,7 +62,7 @@ function Singup() {
                         verified
                     }
                     fetch('http://localhost:5000/user', {
-                        method: 'POST',
+                        method: 'PUT',
                         headers: {
                             'content-type': 'application/json'
                         },
@@ -83,13 +79,26 @@ function Singup() {
                 })
         }
 
-
     }
 
     // Login with google
     const handleGoogleLogin = () => {
         userLoginWithGoogle()
-            .then(() => {
+            .then((result) => {
+                const userInfo = {
+                    email: result.user.email,
+                    name: result.user.displayName,
+                    userRole: 'buyer'
+                }
+                fetch('http://localhost:5000/user', {
+                    method: 'PUT',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(userInfo)
+                })
+                    .then(res => res.json())
+                    .then(data => console.log(data))
                 navigate(url, { replace: true })
             })
             .catch(err => console.log(err))

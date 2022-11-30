@@ -24,7 +24,7 @@ function MyOrders() {
         },
     })
 
-
+    console.log(products)
     const hendleOpenModal = (product) => {
         setModal(true)
         setproduct(product)
