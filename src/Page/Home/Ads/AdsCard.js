@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import Button from '../../../Components/Button/Button'
-import BookingModal from '../../BookingModal/BookingModal'
 import Modal from 'react-modal';
 import { IoCloseCircle } from 'react-icons/io5';
 
@@ -32,7 +31,10 @@ const {userName, sellarPrice, orignalPrice, name, yearOfUse, image, date} = prod
     return (
         <div className="py-11">
             <div className="bg-white sm:h-56 rounded shadow-md sm:flex">
-                <img className="sm:w-1/2 h-full rounded-l-sm bg-slate-300" src={image} alt="" />
+                <div className='relative sm:w-96'>
+                    <img className=" w-full  h-full rounded-l-sm bg-slate-300 " src={image} alt="" />
+                    <p className='absolute top-0 left-0 text-left  bg-white px-7'>Ads</p>
+                </div>
                 <div className="w-full flex flex-col">
                     <div className="p-4 pb-0 flex-1">
                         <h3 className="font-light mb-1">Model: {name}</h3>

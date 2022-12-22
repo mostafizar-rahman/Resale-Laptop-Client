@@ -17,7 +17,7 @@ function CheckoutForm({ product, refetch }) {
   console.log(orignalProductId)
 
   useEffect(() => {
-    fetch("https://module-78-server.vercel.app/create-payment-intent", {
+    fetch("http://localhost:5000/create-payment-intent", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ price }),
@@ -78,7 +78,7 @@ function CheckoutForm({ product, refetch }) {
         email,
         bookingProductId: _id
       }
-      fetch('https://module-78-server.vercel.app/payments', {
+      fetch('http://localhost:5000/payments', {
         method: 'POST',
         headers: {
           'content-type': 'application/json',
@@ -98,7 +98,7 @@ function CheckoutForm({ product, refetch }) {
         orginalProductId: orignalProductId
 
       }
-      fetch('https://module-78-server.vercel.app/payments', {
+      fetch('http://localhost:5000/payments', {
         method: 'PUT',
         headers: {
           'content-type': 'application/json',

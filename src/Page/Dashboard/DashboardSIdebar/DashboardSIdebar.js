@@ -11,7 +11,7 @@ function DashboardSIdebar() {
   const [isLoding, setIsLoding] = useState(true)
 
   useEffect(() => {
-    axios.get(`https://module-78-server.vercel.app/user?email=${user?.email}`)
+    axios.get(`http://localhost:5000/user?email=${user?.email}`)
       .then(res => setUserRole(res))
     setIsLoding(false)
   }, [user?.email])

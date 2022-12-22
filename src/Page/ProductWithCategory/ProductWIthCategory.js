@@ -5,7 +5,7 @@ import Card from '../../Components/Card/Card'
 function ProductWIthCategory() {
     const products = useLoaderData()
     return (
-        <div className='max-w-[1400px] mx-auto'>
+        <div className='max-w-[1400px] mx-auto min-h-screen'>
             
             <div className='grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 gap-5 mt-5'>
                 {

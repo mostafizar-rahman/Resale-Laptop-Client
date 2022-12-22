@@ -7,7 +7,7 @@ function NavbarTop() {
 
     return (
         <div className='flex justify-between max-w-[1400px] mx-auto pt-3 pb-4 px-2'>
-            <div className='flex items-center'>
+            <div className='sm:flex items-center'>
                 <img className='w-14 h-14' src="https://icons.iconarchive.com/icons/paomedia/small-n-flat/512/device-laptop-icon.png" alt="" />
                 <h1 className='text-2xl font-bold'>Laptop House</h1>
             </div>

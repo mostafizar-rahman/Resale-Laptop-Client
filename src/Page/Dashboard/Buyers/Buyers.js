@@ -8,13 +8,13 @@ function Buyers() {
   const [buyer, setBuyer] = useState([])
   const [isLoding, setIsLoding] = useState(true)
   useEffect(() => {
-    axios.get(`https://module-78-server.vercel.app/user/buyer`)
+    axios.get(`http://localhost:5000/user/buyer`)
       .then(res => setBuyer(res.data))
     setIsLoding(false)
   }, [])
 
   const hendleDeleteBuyer = (id) => {
-    axios.delete(`https://module-78-server.vercel.app/user/buyer/${id}`)
+    axios.delete(`http://localhost:5000/user/buyer/${id}`)
       .then(res => console.log(res))
     const newBuyer = buyer.filter(byr => byr._id !== id)
     setBuyer(newBuyer)

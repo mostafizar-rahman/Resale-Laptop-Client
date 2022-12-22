@@ -7,7 +7,7 @@ import useTitle from '../../Hooks/useTItle'
 
 
 function Singup() {
-    const { userRegister, userUpdateProfile, userLoginWithGoogle } = useContext(AuthContext)
+    const { userRegister, userUpdateProfile, userLoginWithGoogle, loading } = useContext(AuthContext)
 
     const [error, setError] = useState('')
     const [imageUrl, setImageUrl] = useState(null)
@@ -61,7 +61,7 @@ function Singup() {
                         name,
                         userRole,
                     }
-                    fetch('https://module-78-server.vercel.app/user', {
+                    fetch('http://localhost:5000/user', {
                         method: 'PUT',
                         headers: {
                             'content-type': 'application/json'
@@ -90,7 +90,7 @@ function Singup() {
                     name: result.user.displayName,
                     userRole: 'buyer'
                 }
-                fetch('https://module-78-server.vercel.app/user', {
+                fetch('http://localhost:5000/user', {
                     method: 'PUT',
                     headers: {
                         'content-type': 'application/json'
@@ -140,10 +140,14 @@ function Singup() {
                                         <span className="ml-1">Seller</span>
                                     </label>
                                 </div>
-                              
+
 
                                 <div className='pt-5'>
-                                    <Button>Sing up</Button>
+                                    <Button castomClass={'relative min-h-[40px]'}>{loading ?
+                                        <div className="absolute right-1/2 bottom-1/2 transform translate-x-1/2 translate-y-1/2 ">
+                                            <div className="border-t-transparent border-solid animate-spin  rounded-full border-white border-2 h-5 w-5"></div>
+                                        </div> : 'Sing Up'
+                                    }</Button>
                                 </div>
                             </form>
                             <div className="flex items-center pt-4 space-x-1">

@@ -7,7 +7,7 @@ import useTitle from '../../Hooks/useTItle'
 
 function Login() {
 
-    const { userLogin, userLoginWithGoogle } = useContext(AuthContext)
+    const { userLogin, userLoginWithGoogle, loading } = useContext(AuthContext)
     const location = useLocation()
     const navigate = useNavigate()
     useTitle('Login')
@@ -40,7 +40,7 @@ function Login() {
                     name: result.user.displayName,
                     userRole: 'buyer'
                 }
-                fetch('https://module-78-server.vercel.app/user', {
+                fetch('http://localhost:5000/user', {
                     method: 'PUT',
                     headers: {
                         'content-type': 'application/json'
@@ -57,7 +57,7 @@ function Login() {
     return (
 
         <section className='max-w-[1400px] mx-auto py-10'>
-            <div className="w-full max-w-sm mx-auto">
+            <div className="w-full max-w-sm mx-auto h-[calc(100vh-180px)]">
                 <h1 className="text-2xl font-bold text-center">Login</h1>
                 <p className='text-red-600 capitalize'>{error}</p>
                 <form onSubmit={handleFormSubmit} className="space-y-6">
@@ -72,7 +72,12 @@ function Login() {
                             <Link  >Forgot Password?</Link>
                         </div>
                     </div>
-                    <Button>Log in</Button>
+
+                    <Button castomClass={'relative min-h-[40px]'}>{loading ?
+                        <div className="absolute right-1/2 bottom-1/2 transform translate-x-1/2 translate-y-1/2 ">
+                            <div className="border-t-transparent border-solid animate-spin  rounded-full border-white border-2 h-5 w-5"></div>
+                        </div> : 'Sing Up'
+                    }</Button>
                 </form>
                 <div className="flex items-center pt-4 space-x-1">
                     <div className="flex-1 h-px sm:w-16 bg-gray-700"></div>

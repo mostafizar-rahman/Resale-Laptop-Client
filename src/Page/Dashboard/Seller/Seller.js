@@ -1,35 +1,25 @@
 
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
 import { IoCheckmark } from 'react-icons/io5'
 import Button from '../../../Components/Button/Button'
 import Loader from '../../../Components/Loader/Loader'
 import useTitle from '../../../Hooks/useTItle'
 
 function Seller() {
-
-  // const [seller, setSeller] = useState([])
-  // const [isLoding, setIsLoding] = useState(true)
   useTitle('All Seller')
-
-  // useEffect(() => {
-  //   axios.get(`https://module-78-server.vercel.app/user/seller`)
-  //     .then(res => setSeller(res.data))
-  //   setIsLoding(false)
-  // }, [])
 
   const { data: seller = [], refetch, isLoading } = useQuery({
     queryKey: ['seller'],
     queryFn: async () => {
-      const res = await fetch(`https://module-78-server.vercel.app/user/seller`)
+      const res = await fetch(`http://localhost:5000/user/seller`)
       const data = await res.json()
       return data
     },
   })
 
   const hendleDeleteSeller = (id) => {
-    axios.delete(`https://module-78-server.vercel.app/user/seller/${id}`)
+    axios.delete(`http://localhost:5000/user/seller/${id}`)
       .then(res => console.log(res))
     // const newSeller = seller.filter(slr => slr._id !== id)
     // setSeller(newSeller)
@@ -37,7 +27,7 @@ function Seller() {
   }
 
   const hendleVerified = (email) => {
-    fetch(`https://module-78-server.vercel.app/user/seller?email=${email}`, {
+    fetch(`http://localhost:5000/user/seller?email=${email}`, {
       method: 'PUT',
       headers: {
         'content-type': 'application/json'

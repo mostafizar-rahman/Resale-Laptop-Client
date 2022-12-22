@@ -1,5 +1,4 @@
 import { useQuery } from '@tanstack/react-query'
-import { useEffect } from 'react'
 import Card from '../../../Components/Card/Card'
 import Loader from '../../../Components/Loader/Loader'
 
@@ -8,7 +7,7 @@ function Products() {
   const { data: products = [], isLoading } = useQuery({
     queryKey: ['products'],
     queryFn: async () => {
-      const res = await fetch('https://module-78-server.vercel.app/newistProduct')
+      const res = await fetch('http://localhost:5000/newistProduct')
       const data = await res.json()
       return data
     }
@@ -16,8 +15,7 @@ function Products() {
 
 
   return (
-    <div className='max-w-[1400px] mx-auto mt-28 px-2'>
-
+    <div className='max-w-[1400px] mx-auto mt-28 px-2 '>
       {
         isLoading ? <Loader /> :
           <div>

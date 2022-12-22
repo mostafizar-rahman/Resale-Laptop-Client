@@ -31,7 +31,7 @@ export const router = createBrowserRouter([
             {
                 path:'/products/:cata_id',
                 element: <ProductWIthCategory/>,
-                loader: async ({params}) => fetch(`https://module-78-server.vercel.app/products/${params.cata_id}`)
+                loader: async ({params}) => fetch(`http://localhost:5000/products/${params.cata_id}`)
             },
             {
                 path:'/block',

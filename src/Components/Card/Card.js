@@ -1,28 +1,46 @@
 
-import axios from 'axios';
-import React, {useContext, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import toast from 'react-hot-toast';
 import { IoCheckmark } from 'react-icons/io5';
+import {useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider';
 import BookingModal from '../../Page/BookingModal/BookingModal';
 import Button from '../Button/Button'
 
 function Card({ product }) {
-    const {user} = useContext(AuthContext)
-    const {_id, image, name, orignalPrice, sellarPrice, userName, yearOfUse, verifiedStatud, date } = product;
+    const { user } = useContext(AuthContext)
+    const { _id, image, name, orignalPrice, sellarPrice, userName, yearOfUse, verifiedStatud, date } = product;
     const [modal, setModal] = useState(false)
-    console.log(product)
+    const navigate = useNavigate()
+
     const hendleOpenModal = () => {
-        setModal(true)
+        if (!user) {
+            toast.error('Please careate a account')
+            navigate('/login')
+            return
+        }
+        else {
+            fetch(`http://localhost:5000/user?email=${user?.email}`)
+                .then(res => res.json())
+                .then(data => {
+                    if (data.userRole === 'seller') {
+                        toast.error('Please careate a buyer account')
+                        navigate('/login')
+                        return
+                    }
+                    else if (data.userRole === 'buyer') {
+                        return setModal(true)
+                    }
+                })
+        }
     }
 
     const hendleAddWhiteList = () => {
         const whiteListProduct = {
             image,
             name,
-            orignalPrice, 
+            orignalPrice,
             sellarPrice,
-            userName,
             yearOfUse,
             date,
             verifiedStatud,
@@ -31,7 +49,7 @@ function Card({ product }) {
             orignalProductId: _id
 
         }
-        fetch('https://module-78-server.vercel.app/whiteList', {
+        fetch('http://localhost:5000/whiteList', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

@@ -1,7 +1,5 @@
 import axios from 'axios'
 import React, { useContext, useEffect, useState } from 'react'
-import { IoCheckmark } from 'react-icons/io5'
-import Button from '../../../Components/Button/Button'
 import { AuthContext } from '../../../Context/AuthProvider'
 import WhiteListCard from './WhiteListCard'
 
@@ -10,9 +8,9 @@ function WhiteList() {
   const [products, setProduct] = useState([])
 
   useEffect(() => {
-    axios(`https://module-78-server.vercel.app/whiteList?email=${user?.email}`)
+    axios(`http://localhost:5000/whiteList?email=${user?.email}`)
       .then(res => setProduct(res.data))
-  }, [])
+  }, [user?.email])
   console.log(products)
 
 

@@ -24,7 +24,7 @@ function BookingModal({ product, modal, setModal, orignalProductId }) {
             price: product.sellarPrice,
             image: product.image,
         }
-        fetch('https://module-78-server.vercel.app/product', {
+        fetch('http://localhost:5000/product', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

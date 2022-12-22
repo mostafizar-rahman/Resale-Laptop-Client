@@ -10,7 +10,7 @@ function AddProduct() {
   const [verifiedStatud, setverifiedStatud] = useState('')
 
   useEffect(() => {
-    axios.get(`https://module-78-server.vercel.app/user?email=${user?.email}`)
+    axios.get(`http://localhost:5000/user?email=${user?.email}`)
       .then(res => setverifiedStatud(res.data.verifiedStatud))
   }, [user?.email])
 
@@ -58,7 +58,7 @@ function AddProduct() {
           verifiedStatud
         }
 
-        fetch('https://module-78-server.vercel.app/addProducts', {
+        fetch('http://localhost:5000/addProducts', {
           method: 'POST',
           headers: {
             'content-type': 'application/json'
@@ -73,7 +73,7 @@ function AddProduct() {
             }
           })
 
-        fetch('https://module-78-server.vercel.app/addNewistProduct', {
+        fetch('http://localhost:5000/addNewistProduct', {
           method: 'POST',
           headers: {
             'content-type': 'application/json'
@@ -84,7 +84,7 @@ function AddProduct() {
           .then(data => { })
 
         // Added category
-        fetch('https://module-78-server.vercel.app/categorys', {
+        fetch('http://localhost:5000/categorys', {
           method: 'PUT',
           headers: {
             'content-type': 'application/json'

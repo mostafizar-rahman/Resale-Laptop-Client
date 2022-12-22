@@ -1,7 +1,7 @@
 
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Button from '../../../Components/Button/Button'
 import { AuthContext } from '../../../Context/AuthProvider'
 import PaymentModal from '../PaymentModal/PaymentModal'
@@ -18,7 +18,7 @@ function MyOrders() {
     const { data: products = [], refetch } = useQuery({
         queryKey: ['product', user?.email],
         queryFn: async () => {
-            const res = await fetch(`https://module-78-server.vercel.app/product?email=${user?.email}`)
+            const res = await fetch(`http://localhost:5000/product?email=${user?.email}`)
             const data = await res.json()
             return data
         },
@@ -31,7 +31,7 @@ console.log(products)
 
 
     const hendleDelete = (id) => {
-        axios.delete(`https://module-78-server.vercel.app/product/${id}`)
+        axios.delete(`http://localhost:5000/product/${id}`)
             .then(res => console.log(res))
         refetch()
 

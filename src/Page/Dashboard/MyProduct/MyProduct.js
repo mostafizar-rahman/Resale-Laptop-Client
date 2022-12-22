@@ -8,12 +8,12 @@ function MyProduct() {
   const { user } = useContext(AuthContext)
   const [products, setProduct] = useState([])
   useEffect(() => {
-    axios.get(`https://module-78-server.vercel.app/myProduct?email=${user?.email}`)
+    axios.get(`http://localhost:5000/myProduct?email=${user?.email}`)
       .then(res => setProduct(res.data))
   }, [user?.email])
 
   const hendleAds = (id) => {
-    fetch(`https://module-78-server.vercel.app/addProducts/${id}`, {
+    fetch(`http://localhost:5000/addProducts/${id}`, {
       method: 'PUT',
       headers: {
         'content-type': 'application/json'
@@ -23,7 +23,7 @@ function MyProduct() {
   }
 
   const hendleDelete = (id) => {
-    axios.delete(`https://module-78-server.vercel.app/myProduct/${id}`)
+    axios.delete(`http://localhost:5000/myProduct/${id}`)
       .then(res => console.log(res))
     const newProduct = products.filter(prd => prd._id !== id)
     setProduct(newProduct)
